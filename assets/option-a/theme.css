@@ -1,0 +1,52 @@
+/* ============================================================
+   Option A — Premium Interiors
+   Direction: refined, design-led, gallery-forward. Modelled on
+   the OnPoint "Premium Residential Studio" aesthetic — serif
+   display, calm stone palette, generous whitespace, hairlines.
+   ============================================================ */
+@import url('/assets/shared/base.css');
+
+:root {
+  --v-ink: #211d18;
+  --v-ink-soft: #46403a;
+  --v-body: #595149;
+  --v-muted: #948b7e;
+  --v-paper: #ffffff;
+  --v-bg: #f4efe7;
+  --v-bg-soft: #faf6ef;
+  --v-line: rgba(33,29,24,0.13);
+  --v-line-soft: rgba(33,29,24,0.07);
+  --v-accent: #9a7d54;          /* antique brass */
+  --v-accent-deep: #7a5f3a;
+  --v-accent-soft: rgba(154,125,84,0.10);
+  --v-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --v-radius: 6px;
+  --v-radius-sm: 5px;
+  --v-radius-lg: 10px;
+  --v-maxw: 1180px;
+}
+
+/* Premium: lighter display weight, wider tracking on eyebrows */
+h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.015em; }
+.v-eyebrow { letter-spacing: 0.24em; font-size: 0.66rem; }
+
+/* Editorial hero — image taller, caption */
+.v-hero { padding: clamp(48px, 7vw, 96px) 0 clamp(36px, 5vw, 64px); }
+.v-hero__media figcaption { font-family: var(--v-font-body); font-size: 0.78rem; color: var(--v-muted); padding: 10px 14px; background: var(--v-paper); }
+
+/* Refined cards: flat, hairline, no lift */
+.v-card { box-shadow: none; border-radius: var(--v-radius); }
+.v-card:hover { transform: none; box-shadow: var(--v-shadow-sm); }
+
+/* Premium gallery: fewer, larger, more spacious */
+@media (min-width: 760px) { .v-gallery { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
+.v-tile__img { aspect-ratio: 5 / 4; border-radius: var(--v-radius); }
+.v-tile figcaption { font-style: italic; color: var(--v-muted); }
+
+/* Factbar */
+.v-factbar { border-top: 1px solid var(--v-line); border-bottom: 1px solid var(--v-line); }
+.v-factbar__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+@media (min-width: 760px) { .v-factbar__grid { grid-template-columns: repeat(4, 1fr); } }
+.v-factbar__grid > div { padding: 24px 20px; border-right: 1px solid var(--v-line-soft); }
+.v-factbar__grid strong { display: block; font-family: var(--v-font-display); font-size: 1.05rem; }
+.v-factbar__grid span { font-size: 0.82rem; color: var(--v-muted); }

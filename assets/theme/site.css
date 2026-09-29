@@ -1,0 +1,1456 @@
+/* ============================================================
+   Very Well Hung — site theme (2026 redesign)
+   ------------------------------------------------------------
+   From-scratch visual system. Shading Specialists-style visual
+   confidence (large photography, expert positioning), Adams-style
+   dual domestic/commercial structure, Simone front and centre.
+   One file: design tokens, layout, components.
+   The v-* component classes match what assets/shared/vwh.js
+   renderers emit (cards, tiles, steps, fields, FAQs, factbar).
+   ============================================================ */
+
+/* ============================================================
+   Typefaces — self-hosted variable fonts
+   ------------------------------------------------------------
+   Previously three render-blocking requests to fonts.googleapis
+   and fonts.gstatic. Self-hosting removes the third-party
+   dependency entirely: one less DNS + TLS handshake on the
+   critical path, and no visitor IP handed to Google before the
+   cookie banner has been answered.
+
+   Both files are the variable latin subsets. Fraunces carries an
+   `opsz` axis, so `font-optical-sizing: auto` lets the browser
+   pick the right optical size for every heading: tighter spacing
+   and finer serifs at display sizes, sturdier at small ones.
+   That is the difference between type that is set and type that
+   is merely sized.
+   ============================================================ */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 300 620;
+  font-display: swap;
+  src: url('/assets/fonts/fraunces-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  /* The file's wght axis actually runs 100 to 900; this was declared at
+     400 700 and so clamped everything above 700 down to it. Widened to
+     reach 800, which is Automika's wordmark weight in the footer credit.
+     Nothing else on the site asks for more than 700, so this changes no
+     existing type, and it costs nothing: same variable font, same bytes,
+     one already-present part of the axis unlocked. */
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/assets/fonts/inter-normal-latin.woff2') format('woff2');
+}
+
+:root {
+  --bg: #f7f5f0;
+  --paper: #fffdf9;
+  --ink: #1c211c;
+  --body: #454b41;
+  --muted: #79806f;
+  --green: #2f5240;
+  --green-deep: #22392e;
+  --green-soft: #e9eee5;
+  --brass: #a98a52;
+  --brass-soft: #f1e9da;
+  --line: #e2ddd0;
+  --line-soft: #ece8dd;
+  --radius: 10px;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow: 0 18px 50px -24px rgba(28, 33, 28, 0.28);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--body);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 480; line-height: 1.08; letter-spacing: -0.015em; color: var(--ink); margin: 0; }
+h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); }
+p { margin: 0 0 1em; }
+a { color: var(--green); text-decoration: none; }
+a:hover { color: var(--green-deep); }
+img, video { max-width: 100%; height: auto; display: block; }
+::selection { background: var(--brass-soft); }
+
+.w-container { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 44px); }
+
+.w-eyebrow {
+  display: inline-block; font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); margin-bottom: 16px;
+}
+
+/* ---------- Buttons ---------- */
+.w-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 0.95rem;
+  padding: 13px 26px; border-radius: 999px; border: 1.5px solid transparent;
+  cursor: pointer; transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.w-btn--green { background: var(--green); color: #fff; }
+.w-btn--green:hover { background: var(--green-deep); color: #fff; transform: translateY(-1px); }
+.w-btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.w-btn--ghost:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-1px); }
+.w-btn--light { background: #fff; color: var(--green-deep); }
+.w-btn--light:hover { background: var(--brass-soft); color: var(--green-deep); transform: translateY(-1px); }
+.w-btn--lg { padding: 16px 32px; font-size: 1.02rem; }
+
+/* ---------- Utility top bar ---------- */
+.w-topbar { background: var(--green-deep); color: var(--brass-soft); font-size: 0.8rem; padding: 8px 0; }
+.w-topbar__inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.w-topbar a { color: var(--brass-soft); }
+.w-topbar a:hover { color: #fff; }
+.w-topbar__sep { opacity: 0.5; }
+@media (max-width: 560px) {
+  .w-topbar__sep, .w-topbar__inner > a { display: none; }
+}
+
+/* ---------- Header ---------- */
+.v-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-soft);
+}
+.v-header__inner { display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 3vw, 48px); padding-top: 14px; padding-bottom: 14px; }
+/* The logo never shrinks and never wraps: a two-line wordmark is the
+   single thing that makes a header look unfinished. The nav is the
+   flexible half, and it is set to nowrap so a label like "Office
+   Blinds" can never break across lines. Below 1240px the whole row
+   collapses to the hamburger rather than being squeezed: the full
+   seven links plus the pill need about 1160px to sit comfortably. */
+.v-logo { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; }
+/* The drape mark is sized in the header by height, not width, so it
+   always matches the wordmark's cap-to-baseline block whatever the
+   type does. It is decorative: the link's accessible name is still
+   the business name beside it. */
+.v-logo__mark { height: 40px; width: auto; flex: 0 0 auto; }
+.v-logo__words { display: grid; gap: 2px; }
+.v-logo__name { font-family: var(--font-display); font-weight: 560; font-size: 1.32rem; color: var(--ink); letter-spacing: 0.04em; line-height: 1.15; white-space: nowrap; }
+.v-logo__tag { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); line-height: 1.2; white-space: nowrap; }
+.v-nav__links { display: flex; align-items: center; flex-wrap: nowrap; gap: clamp(13px, 1.5vw, 24px); }
+.v-nav__links a { font-size: 0.875rem; font-weight: 550; color: var(--body); line-height: 1.2; white-space: nowrap; transition: color 0.15s ease; }
+/* Desktop only: padding keeps the active rule clear of the descenders,
+   and applies to every link so they share one baseline. Scoped to a
+   min-width so it cannot fight the stacked mobile padding below. */
+@media (min-width: 1241px) {
+  .v-nav__links a:not(.v-nav__cta) { padding-bottom: 4px; }
+}
+.v-nav__links a:hover { color: var(--ink); }
+.v-nav__links a.is-active { color: var(--ink); box-shadow: 0 2px 0 var(--brass); }
+.v-nav__cta { background: var(--green); color: #fff !important; padding: 10px 20px; border-radius: 999px; font-weight: 600; white-space: nowrap; margin-left: clamp(4px, 0.8vw, 12px); transition: background 0.15s ease; }
+.v-nav__cta:hover { background: var(--green-deep); }
+.v-nav__toggle { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
+.v-nav__toggle span { width: 22px; height: 2px; background: var(--ink); display: block; margin: 5px 0; transition: transform 0.2s ease; }
+/* Below this the wordmark's strapline is what pushes the menu button
+   off the right edge: both logo lines are `white-space: nowrap` and the
+   logo is `flex: 0 0 auto`, so nothing can give. Dropping the strapline
+   is the right sacrifice, it already appears in full in the footer. */
+@media (max-width: 620px) {
+  .v-logo__tag { display: none; }
+  .v-logo__mark { height: 33px; }
+}
+@media (max-width: 1240px) {
+  .v-nav__toggle { display: block; }
+  .v-nav__links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    flex-direction: column; align-items: stretch; padding: 18px clamp(20px, 4vw, 44px) 26px; gap: 4px;
+  }
+  .v-nav__links a { padding: 10px 0; font-size: 1.02rem; border-bottom: 1px solid var(--line-soft); }
+  .v-nav__cta { margin-top: 12px; text-align: center; border-bottom: 0 !important; }
+  nav.is-nav-open .v-nav__links { display: flex; }
+}
+
+/* ---------- Hero (full-bleed photo) ---------- */
+.w-hero {
+  position: relative; display: grid; align-items: end; min-height: clamp(520px, 78vh, 760px);
+  color: #fff; overflow: hidden;
+}
+.w-hero__media { position: absolute; inset: 0; }
+.w-hero__media img, .w-hero__media video { width: 100%; height: 100%; object-fit: cover; }
+.w-hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(22, 30, 24, 0.78) 0%, rgba(22, 30, 24, 0.32) 45%, rgba(22, 30, 24, 0.18) 100%);
+}
+.w-hero__content { position: relative; z-index: 2; width: 100%; padding: clamp(40px, 6vw, 80px) 0; }
+.w-hero h1 { color: #fff; max-width: 17ch; }
+.w-hero .w-eyebrow { color: var(--brass-soft); }
+.w-hero__lede { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: rgba(255, 255, 255, 0.88); max-width: 52ch; margin: 18px 0 28px; }
+.w-hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---------- Hero (split: text + tall image) ---------- */
+.w-hero-split { padding: clamp(40px, 6vw, 76px) 0 0; }
+.w-hero-split__grid { display: grid; gap: clamp(28px, 4vw, 56px); align-items: center; }
+@media (min-width: 900px) { .w-hero-split__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.w-hero-split__lede { font-size: clamp(1.02rem, 1.5vw, 1.16rem); max-width: 54ch; margin: 18px 0 28px; }
+.w-hero-split__media img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; max-height: 640px; object-fit: cover; }
+
+/* ---------- Plain page hero ---------- */
+.w-page-hero { padding: clamp(44px, 6vw, 72px) 0 clamp(10px, 2vw, 24px); }
+.w-page-hero h1 { max-width: 20ch; }
+.w-page-hero__lede { font-size: clamp(1rem, 1.5vw, 1.14rem); max-width: 56ch; margin: 18px 0 24px; }
+
+/* ---------- Sections ---------- */
+.w-section { padding: clamp(52px, 7vw, 96px) 0; }
+.w-section--paper { background: var(--paper); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+.w-section--tight { padding-bottom: clamp(28px, 4vw, 48px); }
+.w-section--green { background: var(--green-deep); color: #d9decf; }
+.w-section--green h2, .w-section--green h3 { color: #fff; }
+.w-section--green .w-eyebrow { color: var(--brass-soft); }
+.w-section--green .w-section__head p { color: #b9c2ad; }
+.w-section__head { max-width: 62ch; margin-bottom: clamp(28px, 4vw, 44px); }
+.w-section__head h2 { margin-bottom: 12px; }
+.w-section__head h2::after { content: ""; display: block; width: 44px; height: 2px; background: var(--brass); margin-top: 14px; }
+.w-section__head p { color: var(--body); font-size: 1.04rem; margin: 0; }
+.w-section__cta { margin-top: clamp(26px, 4vw, 40px); display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---------- Grids ---------- */
+.v-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 680px) { .v-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .v-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- Cards (vwh.js renderer output) ---------- */
+.v-card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px 24px; display: flex; flex-direction: column;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.v-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.v-card--photo { padding: 0; overflow: hidden; }
+.v-card--photo .v-card__text { padding: 20px 22px 24px; }
+.v-card__img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; }
+.v-card__title { font-size: 1.24rem; margin-bottom: 8px; }
+.v-card__blurb { color: var(--body); font-size: 0.96rem; margin: 0 0 8px; }
+.v-card__detail { color: var(--muted); font-size: 0.9rem; margin: 0; }
+.w-section--green .v-card { border-color: transparent; }
+
+/* ---------- Photo tiles / galleries ---------- */
+.v-gallery { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 640px) { .v-gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .v-gallery { grid-template-columns: repeat(3, 1fr); } }
+.v-gallery--feature .v-tile:first-child .v-tile__img { aspect-ratio: 16 / 9; }
+@media (min-width: 640px) { .v-gallery--feature .v-tile:first-child { grid-column: span 2; } }
+.v-tile { margin: 0; }
+.v-tile__img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--radius); background: var(--green-soft);
+}
+.v-tile figcaption { margin-top: 10px; font-size: 0.86rem; color: var(--muted); }
+.v-tile__ph {
+  aspect-ratio: 4 / 3; border-radius: var(--radius); border: 1.5px dashed var(--line);
+  background: repeating-linear-gradient(-45deg, var(--paper) 0 26px, var(--bg) 26px 52px);
+  display: grid; place-content: center; gap: 8px; text-align: center; padding: 18px;
+}
+.v-tile__ph span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.v-tile__ph code { font-family: ui-monospace, Menlo, monospace; font-size: 0.7rem; color: var(--muted); background: var(--paper); padding: 2px 8px; border-radius: 6px; }
+
+/* ---------- Two-path split panels ---------- */
+.w-paths { display: grid; gap: 20px; }
+@media (min-width: 860px) { .w-paths { grid-template-columns: 1fr 1fr; } }
+.w-path {
+  position: relative; display: flex; flex-direction: column; justify-content: end;
+  min-height: 420px; border-radius: var(--radius); overflow: hidden; color: #fff;
+}
+.w-path__media { position: absolute; inset: 0; }
+.w-path__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.w-path:hover .w-path__media img { transform: scale(1.04); }
+.w-path::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(22, 30, 24, 0.86) 0%, rgba(22, 30, 24, 0.24) 55%, rgba(22, 30, 24, 0.08) 100%); }
+.w-path__text { position: relative; z-index: 2; padding: 28px 28px 30px; }
+.w-path__text h3 { color: #fff; font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: 8px; }
+.w-path__text p { color: rgba(255, 255, 255, 0.85); max-width: 44ch; margin-bottom: 18px; }
+
+/* ---------- Meet Simone — designed to work without a portrait ----------
+   Default state is deliberately image-free: a single editorial column
+   held to a reading measure, with the signature rule below the copy
+   acting as the focal point a face would otherwise provide. It reads as
+   a finished statement, not as a layout with a hole in it.
+
+   When about.portrait.src is set in content.js, vwh.js injects the photo
+   and adds .has-portrait, which switches this to the portrait-led split.
+   No markup changes needed at that point. */
+.w-meet { display: grid; gap: clamp(26px, 4vw, 56px); align-items: center; }
+.w-meet__media { display: none; }
+/* Headings are margin:0 globally; this block sets its own rhythm. No
+   brass ::after rule here — the signature below already carries one,
+   and two in the same block compete. */
+.w-meet__body h2 { margin-bottom: 18px; }
+.w-meet__body > p { max-width: 60ch; }
+.w-meet__lead { font-size: clamp(1.06rem, 1.5vw, 1.22rem); color: var(--ink); }
+/* Signature block: brass rule + her name in the display face. This is
+   what stops the section reading as "portrait to come". */
+.w-meet__sig { display: flex; align-items: center; gap: 14px; margin-top: 26px; }
+.w-meet__sig::before { content: ""; flex: 0 0 auto; width: 40px; height: 2px; background: var(--brass); }
+.w-meet__sig span { font-family: var(--font-display); font-size: 1.08rem; color: var(--ink); letter-spacing: 0.01em; }
+.w-meet__sig small { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.w-meet .w-section__cta { margin-top: 24px; }
+
+.w-meet.has-portrait .w-meet__media { display: block; }
+.w-meet.has-portrait .w-meet__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+.w-meet.has-portrait .w-meet__body > p { max-width: none; }
+@media (min-width: 880px) { .w-meet.has-portrait { grid-template-columns: 0.9fr 1.1fr; } }
+
+/* ---------- Alternating case / feature rows ---------- */
+.w-row { display: grid; gap: clamp(24px, 4vw, 52px); align-items: center; padding: clamp(24px, 3vw, 40px) 0; }
+@media (min-width: 880px) {
+  .w-row { grid-template-columns: 1fr 1fr; }
+  .w-row--flip > :first-child { order: 2; }
+}
+.w-row__media img, .w-row__media video { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; object-fit: cover; }
+.w-row__media--tall img { max-height: 560px; }
+.w-row h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin-bottom: 12px; }
+.w-row__kicker { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-bottom: 10px; display: block; }
+
+/* ---------- Fact bar (trust strip) ---------- */
+.v-factbar { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
+.w-hero-split + .v-factbar { margin-top: 48px; }
+.v-factbar__grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 860px) { .v-factbar__grid { grid-template-columns: repeat(5, 1fr); } }
+.v-factbar__grid > div { padding: 20px 18px; border-right: 1px solid var(--line-soft); }
+.v-factbar__grid > div:last-child { border-right: 0; }
+.v-factbar__grid strong { display: block; font-family: var(--font-display); font-size: 1.02rem; color: var(--ink); }
+.v-factbar__grid span { font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- Process steps ---------- */
+.v-steps { display: grid; grid-template-columns: 1fr; gap: 16px; counter-reset: step; }
+@media (min-width: 680px) { .v-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1020px) { .v-steps { grid-template-columns: repeat(3, 1fr); } }
+.v-step { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 22px; }
+.v-step__num {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--green-soft); color: var(--green); font-family: var(--font-display);
+  font-weight: 600; margin-bottom: 14px;
+}
+.v-step h4 { font-size: 1.1rem; margin-bottom: 6px; }
+.v-step p { color: var(--body); margin: 0; font-size: 0.92rem; }
+.w-section--green .v-step { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.14); }
+.w-section--green .v-step h4 { color: #fff; }
+.w-section--green .v-step p { color: #b9c2ad; }
+.w-section--green .v-step__num { background: rgba(255, 255, 255, 0.1); color: var(--brass-soft); }
+
+/* ---------- Why list ---------- */
+.v-why { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 800px) { .v-why { grid-template-columns: 1fr 1fr; gap: 14px 40px; } }
+.v-why li { position: relative; padding-left: 32px; color: var(--body); }
+.v-why li::before {
+  content: "✓"; position: absolute; left: 0; top: 0;
+  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--green-soft); color: var(--green); font-size: 0.72rem; font-weight: 700;
+}
+.w-section--green .v-why li { color: #ccd3c0; }
+.w-section--green .v-why li::before { background: rgba(255, 255, 255, 0.12); color: var(--brass-soft); }
+
+/* ---------- Comparison table ---------- */
+.w-tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.w-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+.w-table th, .w-table td { text-align: left; padding: 15px 20px; border-bottom: 1px solid var(--line-soft); font-size: 0.95rem; }
+.w-table th { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.w-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+.w-table tr:last-child td { border-bottom: 0; }
+
+/* ---------- FAQs ---------- */
+.v-faqs { display: grid; gap: 10px; max-width: 860px; }
+.v-faq { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 0 22px; }
+.v-faq summary {
+  cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 17px 0; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink);
+}
+.v-faq summary::-webkit-details-marker { display: none; }
+.v-faq summary::after { content: "+"; font-family: var(--font-body); font-size: 1.2rem; color: var(--brass); flex-shrink: 0; }
+.v-faq[open] summary::after { content: "–"; }
+.v-faq p { padding-bottom: 18px; margin: 0; color: var(--body); font-size: 0.95rem; }
+
+/* ---------- Forms ---------- */
+.w-contact-grid { display: grid; gap: clamp(28px, 4vw, 52px); }
+@media (min-width: 900px) { .w-contact-grid { grid-template-columns: 1.15fr 0.85fr; } }
+.v-form { display: grid; gap: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 3vw, 34px); }
+.v-field { display: grid; gap: 6px; }
+.v-field label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+/* Set against the label rather than beside it: aligned right, it
+   forms a single quiet column down the form, so the skippable
+   fields can be counted at a glance instead of read one by one. */
+.v-field__opt { flex: none; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.02em; color: var(--muted); }
+.v-field input, .v-field textarea {
+  width: 100%; font-family: var(--font-body); font-size: 0.97rem; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+}
+.v-field input:focus, .v-field textarea:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: var(--green); }
+.v-field textarea { min-height: 110px; resize: vertical; }
+.v-field__note { font-size: 0.78rem; color: var(--muted); }
+.v-field input[type="file"] { padding: 10px; background: var(--paper); }
+/* Sits above the first field, because the impression of a long
+   form is formed before anything is read. */
+.v-form__hint { font-size: 0.85rem; line-height: 1.5; color: var(--muted); margin: 0; }
+.v-form__privacy { font-size: 0.8rem; color: var(--muted); margin: 0; }
+.v-form__done { background: var(--green-soft); color: var(--green-deep); border-radius: 8px; padding: 14px 16px; font-size: 0.92rem; margin: 0; }
+/* Send failure. Deliberately warm rather than alarming red — it
+   carries the phone number as a fallback, so it is a redirection
+   rather than an error the visitor has to solve. */
+.v-form__error { background: var(--brass-soft); color: #6d5623; border: 1px solid #e0cfa8; border-radius: 8px; padding: 14px 16px; font-size: 0.92rem; margin: 0; }
+.v-form__turnstile:empty { display: none; }
+
+/* ---------- Cookie consent ----------
+   Fixed to the bottom so it never displaces the page behind it.
+   It is not a modal: the site stays readable and usable while the
+   choice is pending, which is what the ICO expects — no cookies
+   are set either way until a button is pressed. */
+.vwh-consent {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+  background: var(--paper); border-top: 1px solid var(--line);
+  box-shadow: 0 -14px 40px -28px rgba(28, 33, 28, 0.45);
+  padding: 16px clamp(16px, 4vw, 44px);
+}
+.vwh-consent__inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; gap: clamp(16px, 3vw, 36px); flex-wrap: wrap;
+}
+.vwh-consent__text { margin: 0; flex: 1 1 320px; font-size: 0.88rem; color: var(--body); max-width: 78ch; }
+.vwh-consent__actions { display: flex; gap: 10px; flex: 0 0 auto; }
+.vwh-consent__actions .w-btn { padding: 9px 20px; font-size: 0.88rem; }
+@media (max-width: 560px) {
+  .vwh-consent__actions { width: 100%; }
+  .vwh-consent__actions .w-btn { flex: 1 1 auto; text-align: center; }
+}
+.w-contact-info { display: grid; gap: 0; align-content: start; }
+.w-contact-info h3 { margin-bottom: 10px; }
+.w-contact-info__lead { font-size: 0.92rem; color: var(--muted); margin-bottom: 16px; }
+.w-contact-info .w-btn { justify-self: start; margin-bottom: 20px; }
+.w-contact-info__row { display: grid; gap: 2px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); }
+.w-contact-info__row strong { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.w-contact-info__row span { color: var(--ink); }
+
+/* ---------- CTA band ---------- */
+.w-band { background: var(--green-deep); color: #ccd3c0; padding: clamp(56px, 8vw, 100px) 0; text-align: center; }
+.w-band h2 { color: #fff; margin-bottom: 14px; }
+.w-band h2 em { font-style: italic; color: var(--brass-soft); }
+.w-band p { max-width: 54ch; margin: 0 auto 28px; }
+.w-band__cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.w-band .w-btn--ghost { color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+.w-band .w-btn--ghost:hover { border-color: #fff; color: #fff; }
+
+/* ---------- CTA band with an inline enquiry form ----------
+   The homepage close band captures the lead in place rather than
+   only linking away. Text left, form right on desktop; stacked on
+   mobile. The form needs no card styling of its own: .v-form
+   already renders as a paper card (background, border, radius), so
+   it reads correctly straight on the dark green band. */
+.w-band--form { text-align: left; }
+.w-band__grid { display: grid; gap: clamp(30px, 5vw, 56px); align-items: center; }
+@media (min-width: 880px) { .w-band__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.w-band--form .w-band__text p { margin: 0 0 14px; max-width: 50ch; }
+.w-band__alt { font-size: 0.92rem; color: #ccd3c0; margin: 0; }
+.w-band__alt a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.45); }
+.w-band__alt a:hover { border-bottom-color: #fff; }
+.w-band__form { margin: 0; }
+
+/* ---------- Quote / referral panel ---------- */
+.w-quote {
+  border-left: 3px solid var(--brass); background: var(--paper); border-radius: 0 var(--radius) var(--radius) 0;
+  padding: clamp(24px, 3vw, 36px) clamp(24px, 4vw, 44px); max-width: 760px;
+}
+.w-quote h3 { margin-bottom: 10px; }
+.w-quote p { margin-bottom: 18px; }
+
+/* ---------- Testimonials ----------
+   A grid of the same .w-quote figure, for the multi-quote homepage
+   section. Stays empty (and its wrapping [data-vwh-optional] section
+   hidden) until content.js testimonials holds a real quote. */
+.v-testimonials { display: grid; gap: 22px; }
+@media (min-width: 720px) { .v-testimonials { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .v-testimonials { grid-template-columns: repeat(3, 1fr); } }
+.v-testimonial { max-width: none; }
+.v-testimonial figcaption { display: grid; gap: 2px; }
+.v-testimonial figcaption strong { font-family: var(--font-display); font-weight: 520; font-size: 0.98rem; color: var(--ink); }
+.v-testimonial figcaption span { font-size: 0.82rem; color: var(--muted); }
+
+/* ---------- Video feature ---------- */
+.w-video { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--green-deep); }
+.w-video video { width: 100%; max-height: 600px; object-fit: cover; }
+.w-video figcaption { padding: 12px 18px; font-size: 0.84rem; color: var(--muted); background: var(--paper); }
+
+/* ---------- Notes ---------- */
+.w-note { font-size: 0.82rem; color: var(--muted); margin-top: 18px; }
+
+/* ---------- Footer ---------- */
+.v-footer { background: var(--ink); color: #a9b0a0; padding: clamp(44px, 6vw, 72px) 0 28px; font-size: 0.92rem; }
+.v-footer a { color: #cfd5c6; }
+.v-footer a:hover { color: #fff; }
+.v-footer__cols { display: grid; gap: 36px; margin-bottom: 40px; }
+@media (min-width: 800px) { .v-footer__cols { grid-template-columns: 1.4fr 1fr 1fr; } }
+/* The footer sits on --ink, where the artwork's near-black outlines
+   would disappear. vwh-mark-dark.svg lifts the drape colour and paints
+   those seams in the footer's own background, so they read as cut
+   lines rather than vanishing. */
+.v-footer__mark { height: 46px; width: auto; margin-bottom: 16px; }
+.v-footer__name { font-family: var(--font-display); font-size: 1.4rem; color: #fff; display: block; }
+.v-footer__tag { display: block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #79806f; margin: 4px 0 14px; }
+.v-footer h5 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #79806f; margin: 0 0 14px; }
+.v-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.v-footer__legal { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 22px; font-size: 0.78rem; color: #79806f; }
+
+/* ---------- Office authority page ---------- */
+/* Quick answers: the answer-first block under the hero. Each card
+   opens with the answer in bold and qualifies it after, so it reads
+   the way it would be quoted rather than the way a brochure reads. */
+.o-quick { display: grid; gap: clamp(20px, 2.6vw, 30px); }
+@media (min-width: 820px) { .o-quick { grid-template-columns: repeat(2, 1fr); } }
+.o-quick__item {
+  border-top: 2px solid var(--brass); padding-top: 16px;
+}
+.o-quick__q { font-size: 1.02rem; margin-bottom: 8px; }
+.o-quick__a { font-size: 0.95rem; color: var(--muted); margin-bottom: 10px; }
+.o-quick__a strong { color: var(--ink); }
+.o-quick__more {
+  font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--green-deep); border-bottom: 1px solid var(--brass-soft);
+  text-decoration: none; padding-bottom: 2px;
+}
+.o-quick__more:hover { border-bottom-color: var(--brass); }
+
+/* Trigger-event pages: /screen-glare-…, /office-overheating-…,
+   /meeting-room-privacy-…. Breadcrumb, symptom and option cards, and
+   the strip that links each page back to the hub and its siblings. */
+.o-crumb { font-size: 0.8rem; color: var(--muted); margin-bottom: 18px; }
+.o-crumb a { color: var(--muted); border-bottom: 1px solid var(--line); }
+.o-crumb a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.o-crumb span { opacity: 0.6; margin: 0 4px; }
+.o-crumb span[aria-current] { opacity: 1; color: var(--ink); margin: 0; }
+
+.o-cards { display: grid; gap: clamp(22px, 3vw, 34px); }
+@media (min-width: 760px) { .o-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 760px) { .o-cards--two { grid-template-columns: repeat(2, 1fr); } }
+.o-card { border-top: 1px solid var(--line); padding-top: 18px; }
+/* Citations inside body copy. The colour alone is too quiet at this
+   size, and an authority link the reader does not notice does half
+   its job. */
+.o-card p a, .o-problem__body p a, .o-ask__item p a, .v-faq a, .o-quick__a a {
+  border-bottom: 1px solid var(--brass-soft); padding-bottom: 1px;
+}
+.o-card p a:hover, .o-problem__body p a:hover, .o-ask__item p a:hover,
+.v-faq a:hover, .o-quick__a a:hover { border-bottom-color: var(--brass); }
+.o-card__title { font-size: 1.05rem; margin-bottom: 10px; }
+.o-card p { font-size: 0.94rem; margin-bottom: 10px; }
+.o-card p:last-child { margin-bottom: 0; }
+/* The options run cheapest first, so the number is the argument and
+   is worth showing rather than leaving implicit in the order. */
+.o-card--ranked { border-top-color: var(--brass); border-top-width: 2px; }
+.o-card__num {
+  display: block; font-family: var(--font-display); font-size: 0.86rem;
+  font-weight: 600; color: var(--brass); margin-bottom: 4px;
+}
+
+.o-related { display: grid; gap: 14px; }
+@media (min-width: 760px) { .o-related { grid-template-columns: repeat(3, 1fr); } }
+.o-related__item {
+  display: grid; gap: 4px; align-content: start;
+  padding: 20px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius); transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.o-related__item:hover { border-color: var(--brass); transform: translateY(-2px); }
+.o-related__item strong { font-family: var(--font-display); font-weight: 520; font-size: 1.02rem; color: var(--ink); }
+.o-related__item span { font-size: 0.88rem; color: var(--muted); }
+
+.o-ask-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+.o-ask-cta__ghost { color: #fff; border-color: rgba(255, 255, 255, 0.35); }
+.o-ask-cta__ghost:hover { color: #fff; border-color: #fff; }
+.o-ask-cta__alt { font-size: 0.88rem; color: #b9c2ad; margin: 0; }
+.o-ask-cta__alt a { color: var(--brass-soft); border-bottom: 1px solid rgba(241, 233, 218, 0.4); }
+.o-ask-cta__alt a:hover { color: #fff; }
+
+/* Problem blocks: the SEO body of /office-blinds. Prose column plus a
+   survey checklist that shows the expertise rather than asserting it. */
+.o-problems { display: grid; gap: clamp(28px, 4vw, 48px); }
+.o-problem {
+  display: grid; gap: clamp(20px, 3vw, 40px); align-items: start;
+  padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--line);
+}
+.o-problems > .o-problem:first-child { border-top: 0; padding-top: 0; }
+@media (min-width: 900px) { .o-problem { grid-template-columns: 1.55fr 1fr; } }
+.o-problem__title { font-size: clamp(1.35rem, 2.2vw, 1.75rem); margin-bottom: 10px; }
+.o-problem__q {
+  font-weight: 600; color: var(--ink); margin-bottom: 16px;
+  padding-left: 14px; border-left: 3px solid var(--brass);
+}
+/* The three problems that now have their own trigger-event page are
+   summaries here, with no survey checklist beside them. Without this
+   they sit in the prose column and leave the aside column empty. */
+.o-problem__body:only-child { grid-column: 1 / -1; max-width: 68ch; }
+.o-problem__body p { margin-bottom: 14px; }
+.o-problem__body p:last-child { margin-bottom: 0; }
+.o-problem__more {
+  display: inline-block; font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--green-deep);
+  border-bottom: 1px solid var(--brass-soft); padding-bottom: 2px;
+}
+.o-problem__more:hover { border-bottom-color: var(--brass); }
+.o-problem__survey {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px 24px;
+}
+.o-problem__survey h4 {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--brass); margin: 0 0 14px;
+}
+.o-problem__survey ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.o-problem__survey li { font-size: 0.9rem; color: var(--muted); padding-left: 18px; position: relative; }
+.o-problem__survey li::before { content: '·'; position: absolute; left: 4px; color: var(--brass); font-weight: 700; }
+
+/* Featured project — case-study fields (each hidden until confirmed) */
+.o-case { display: grid; gap: 22px; }
+@media (min-width: 780px) { .o-case { grid-template-columns: repeat(2, 1fr); } }
+.o-case__field h4 {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--brass); margin: 0 0 8px;
+}
+.o-case__field p { margin-bottom: 10px; }
+
+/* Ask Simone — her own answers, in her own words */
+.o-ask { display: grid; gap: clamp(22px, 3vw, 34px); }
+@media (min-width: 900px) { .o-ask { grid-template-columns: repeat(2, 1fr); } }
+.o-ask__item h3 { font-size: 1.08rem; margin-bottom: 10px; }
+.o-ask__item p { margin-bottom: 10px; }
+
+/* Recent commercial jobs — the local moat, one line each */
+.o-projects { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.o-projects__item {
+  display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px solid var(--line-soft);
+}
+.o-projects__item strong { font-family: var(--font-display); font-size: 1.05rem; min-width: 160px; }
+.o-projects__scope { color: var(--muted); font-size: 0.88rem; }
+
+/* Areas covered — real place names only */
+.o-areas { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.o-areas li {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 16px; font-size: 0.9rem; font-weight: 550;
+}
+.o-areas--wider li { background: transparent; color: var(--muted); font-weight: 400; }
+.o-areas__label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--brass); display: block; margin-bottom: 12px;
+}
+
+/* Comparison table — third column carries the trade-off */
+.w-table__note { color: var(--muted); font-size: 0.88rem; }
+.o-hero__note { font-size: 0.9rem; color: var(--muted); max-width: 46ch; margin-top: 14px; }
+.o-hero__line {
+  font-family: var(--font-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  color: var(--ink); margin: 0 0 16px;
+}
+
+/* ============================================================
+   MOTION & INTERACTION SYSTEM
+   ------------------------------------------------------------
+   Five ideas, in order of how much they carry:
+
+   1. The hero drape. On the homepage the photograph is revealed
+      by two panels drawing apart. It is the product's own verb,
+      it happens once, and it is over in a second.
+   2. Reveal on scroll. Native CSS scroll-driven animation where
+      the browser supports it (no JS on the main thread, runs on
+      the compositor), IntersectionObserver everywhere else.
+   3. Pinned scroll-scrub. Three homepage sections (day/night,
+      recent work, how it works) pin in place while a --scrub
+      custom property runs 0→1 across their own scroll distance —
+      same two-path contract as #2, native view-timeline where
+      supported, a scroll listener everywhere else. Desktop only
+      (860px+): a pin needs room the phone screen doesn't have,
+      so under that width these are just their plain, unpinned,
+      always-visible layouts. See "Pinned scroll-scrub" below.
+   4. Cross-document view transitions, so moving between pages
+      reads as one continuous surface rather than a reload.
+   5. A header that condenses as you leave the top of the page.
+
+   Every one of them is off under prefers-reduced-motion, and
+   every one degrades to the plain static page if the feature is
+   missing. Content is never hidden behind an effect that might
+   not run: the resting state is always "visible".
+   ============================================================ */
+
+/* ---------- Foundations the whole site needed anyway ---------- */
+
+/* Anchor links were landing underneath the sticky header. */
+html { scroll-padding-top: 96px; }
+/* Smooth scrolling is a motion preference, so gate it like one. */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Optical sizing: Fraunces has an opsz axis, so let the browser use it. */
+h1, h2, h3, h4, .v-logo__name, .v-footer__name, .o-hero__line { font-optical-sizing: auto; }
+
+/* A visible, consistent focus ring. Keyboard users could previously
+   tab through the whole site with no indication of where they were. */
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.w-hero :focus-visible, .w-path:focus-visible, .w-section--green :focus-visible,
+.w-band :focus-visible, .v-footer :focus-visible { outline-color: var(--brass-soft); }
+
+/* ---------- 3 · Cross-document view transitions ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.24, 1);
+}
+/* The chrome stays put while the page beneath it changes, which is
+   what makes navigation feel like one surface instead of a reload. */
+.v-header { view-transition-name: site-header; }
+.w-topbar { view-transition-name: site-topbar; }
+.v-footer { view-transition-name: site-footer; }
+
+/* ---------- 2 · Reveal on scroll ----------
+   Resting state is visible. The two enhanced paths below are the
+   only places anything is hidden, and each owns its own way back. */
+@keyframes rv-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Path A — native scroll-driven timeline. No JS involved. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rv-in both cubic-bezier(0.22, 0.61, 0.24, 1);
+      animation-timeline: view();
+      animation-range: entry 2% cover 24%;
+    }
+    /* A row that reveals as one flat block reads as a slide changing.
+       A row that reveals tile-by-tile reads as being shown to you.
+       Put `.stagger` (3-up) or `.stagger-2` (2-up) on the grid and
+       `.reveal` on each child — matching the visual column, not just
+       DOM order. `animation-delay` does nothing on a scroll-linked
+       timeline (there is no wall clock to delay against), so the
+       stagger has to be a later slice of the same scroll distance:
+       each column's entry/cover window starts a little further in. */
+    .stagger > .reveal:nth-child(3n+2)  { animation-range: entry 8% cover 30%; }
+    .stagger > .reveal:nth-child(3n)    { animation-range: entry 14% cover 36%; }
+    .stagger-2 > .reveal:nth-child(2n)  { animation-range: entry 8% cover 30%; }
+  }
+  /* Path B — IntersectionObserver. motion.js adds .rv-js to <html>
+     only when path A is unavailable, so the two never both apply.
+     Ordinary transitions here, so a plain time-based delay staggers
+     a row exactly as it looks like it should. */
+  .rv-js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 750ms cubic-bezier(0.22, 0.61, 0.24, 1),
+                transform 750ms cubic-bezier(0.22, 0.61, 0.24, 1);
+  }
+  .rv-js .reveal.is-in { opacity: 1; transform: none; }
+  .rv-js .stagger > .reveal:nth-child(3n+2) { transition-delay: 110ms; }
+  .rv-js .stagger > .reveal:nth-child(3n)   { transition-delay: 220ms; }
+  .rv-js .stagger-2 > .reveal:nth-child(2n) { transition-delay: 110ms; }
+}
+
+/* ---------- 3 · Pinned scroll-scrub ----------
+   Three sections (below) pin themselves in place with `position:
+   sticky` while the page scrolls past, and a single --scrub custom
+   property runs 0 → 1 across that pinned distance. This block is
+   the only shared part: it defines --scrub and the two ways it gets
+   driven. Every section then reads var(--scrub) in its own CSS to
+   decide what actually happens — a crossfade, a horizontal pan, a
+   line drawing — so this stays three lines of logic, not three
+   animations to keep in sync.
+
+   Desktop only, and only once motion is allowed: below 860px, or
+   under prefers-reduced-motion, a section marked `data-scrub` is
+   never pinned at all — it renders as its own plain, unpinned,
+   fully-visible layout (see each section below). A pin with nothing
+   driving --scrub would freeze mid-transition, which is worse than
+   no effect, so the two are never allowed to separate: native drives
+   it via a named view-timeline where `@supports` confirms it can,
+   motion.js drives it via a scroll listener (adding `.is-scrub-js`)
+   everywhere else, and the structural CSS for each section is
+   gated behind whichever one is actually active. */
+@property --scrub { syntax: '<number>'; inherits: true; initial-value: 0; }
+@keyframes scrub-progress { from { --scrub: 0; } to { --scrub: 1; } }
+
+@media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .h-scrub {
+      view-timeline-name: --scrub-tl;
+      view-timeline-axis: block;
+      animation: scrub-progress linear both;
+      animation-timeline: --scrub-tl;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+
+/* ---------- 4 · Header condense ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .v-header__inner {
+      animation: hdr-condense linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 140px;
+    }
+    .v-logo__tag {
+      animation: hdr-tag linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90px;
+    }
+    .v-logo__mark {
+      animation: hdr-mark linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 140px;
+    }
+    .v-header {
+      animation: hdr-lift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 140px;
+    }
+  }
+}
+@keyframes hdr-condense { to { padding-top: 9px; padding-bottom: 9px; } }
+@keyframes hdr-tag { to { opacity: 0; } }
+@keyframes hdr-mark { to { height: 32px; } }
+@keyframes hdr-lift { to { box-shadow: 0 12px 32px -26px rgba(28, 33, 28, 0.6); } }
+
+/* ============================================================
+   HOMEPAGE
+   ============================================================ */
+
+/* ---------- 1 · The hero drape ----------
+   Two panels, the page's own background colour, drawn apart from
+   the centre. The photograph loads and paints underneath at full
+   priority: the panels are an overlay, so nothing about the
+   reveal delays the largest contentful paint.
+
+   Note the direction of the animation. The panels' RESTING state
+   is open (translated off-stage) and the keyframes run *from*
+   closed. If CSS animations never run, the hero is simply open.
+   A decorative effect must never be able to hide the page. */
+.h-hero__drape {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.h-hero__drape i {
+  display: block;
+  position: relative;
+  background: var(--bg);
+  transform: translateX(-101%);
+}
+.h-hero__drape i:last-child { transform: translateX(101%); }
+/* A single soft shadow along the meeting edge is enough to read as
+   two panels rather than a flat wipe — no printed-on texture. */
+.h-hero__drape i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.h-hero__drape i:first-child::after { box-shadow: inset -22px 0 34px -24px rgba(28, 33, 28, 0.45); }
+.h-hero__drape i:last-child::after { box-shadow: inset 22px 0 34px -24px rgba(28, 33, 28, 0.45); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .h-hero__drape i:first-child { animation: drape-left 1500ms cubic-bezier(0.76, 0, 0.24, 1) 100ms backwards; }
+  .h-hero__drape i:last-child  { animation: drape-right 1500ms cubic-bezier(0.76, 0, 0.24, 1) 100ms backwards; }
+  /* The room settles into place behind them, slower than the draw
+     and barely perceptible as motion rather than a "zoom". */
+  .h-hero .w-hero__media img { animation: hero-settle 3200ms cubic-bezier(0.16, 0.7, 0.2, 1) backwards; }
+  /* Copy arrives in two unhurried beats, not a four-line cascade:
+     the standfirst as one thought, then the offer as the next. */
+  .h-hero__seq > :nth-child(1),
+  .h-hero__seq > :nth-child(2) { animation: hero-rise 950ms cubic-bezier(0.22, 0.61, 0.24, 1) 800ms backwards; }
+  .h-hero__seq > :nth-child(3),
+  .h-hero__seq > :nth-child(4) { animation: hero-rise 950ms cubic-bezier(0.22, 0.61, 0.24, 1) 1000ms backwards; }
+  .h-hero__scroll { animation: hero-rise 950ms cubic-bezier(0.22, 0.61, 0.24, 1) 1500ms backwards; }
+}
+@media (prefers-reduced-motion: reduce) { .h-hero__drape { display: none; } }
+/* Set by motion.js when the page loaded in a hidden tab. */
+.no-intro .h-hero__drape { display: none; }
+.no-intro .h-hero__seq > *, .no-intro .h-hero__scroll, .no-intro .h-hero .w-hero__media img { animation: none; }
+
+@keyframes drape-left  { from { transform: none; } }
+@keyframes drape-right { from { transform: none; } }
+@keyframes hero-settle { from { transform: scale(1.035); } }
+@keyframes hero-rise   { from { opacity: 0; transform: translateY(12px); } }
+
+/* Hero refinements: a wider measure for the headline and a quiet
+   scroll cue so the fold reads as "there is more", not "the end". */
+.h-hero { min-height: clamp(560px, 88vh, 860px); }
+.h-hero .w-hero__media { background: var(--ink); }
+/* The shared hero gradient runs bottom-to-top, which leaves the lede
+   sitting over the brightest part of this particular photograph. A
+   second gradient weights the left column only, so the copy gets a
+   consistent ground and the window keeps its daylight. */
+.h-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(100deg,
+    rgba(18, 24, 20, 0.74) 0%,
+    rgba(18, 24, 20, 0.54) 32%,
+    rgba(18, 24, 20, 0.10) 60%,
+    rgba(18, 24, 20, 0) 76%);
+}
+@media (max-width: 760px) {
+  .h-hero::before { background: linear-gradient(to top, rgba(18,24,20,0.82) 30%, rgba(18,24,20,0.4) 100%); }
+}
+.h-hero h1 { max-width: 15ch; font-weight: 460; letter-spacing: -0.025em; }
+.h-hero__scroll {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: clamp(28px, 4vw, 44px);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+.h-hero__scroll::before {
+  content: ""; width: 30px; height: 1px; background: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Two paths ----------
+   The one decision every visitor has to make, so it sits directly
+   under the hero and is the largest thing on the page after it. */
+.h-paths .w-path { min-height: clamp(400px, 52vh, 520px); }
+.h-paths .w-path__text h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+/* A directional cue that moves on hover, so the panel reads as a
+   destination rather than a picture with words on it. */
+.h-path__go {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 600; font-size: 0.95rem; color: #fff;
+}
+.h-path__go svg { transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.24, 1); }
+.w-path:hover .h-path__go svg, .w-path:focus-visible .h-path__go svg { transform: translateX(6px); }
+
+/* ---------- Homepage trust strip ----------
+   Three confirmed facts, slim by design: it sits between the "meet
+   Simone" section and the day/night feature, so it earns its place
+   with specifics rather than a slogan. Same border-and-heading shape
+   as .o-quick on the office page, kept as its own class because this
+   one is homepage-only. */
+.h-trust { padding: clamp(32px, 5vw, 52px) 0; }
+.h-trust__grid { display: grid; gap: clamp(22px, 3vw, 34px); }
+@media (min-width: 780px) { .h-trust__grid { grid-template-columns: repeat(3, 1fr); } }
+.h-trust__item { border-top: 2px solid var(--brass); padding-top: 16px; }
+.h-trust__item h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.h-trust__item p { font-size: 0.92rem; color: var(--muted); margin: 0; }
+
+/* ---------- Day and night ----------
+   Two photographs of one room, hours apart. They are deliberately
+   NOT cross-faded: they were shot from different positions, so a
+   dissolve would read as a jump cut. Presented instead as a pair
+   on a dark ground, which is where the evening frame belongs. */
+.h-daynight { background: #16191a; color: #b9c2ad; padding: clamp(56px, 8vw, 104px) 0; }
+.h-daynight h2 { color: #fff; }
+.h-daynight .w-eyebrow { color: var(--brass); }
+.h-daynight .w-section__head p { color: #9aa392; }
+
+/* ---------- Day & Night: pinned crossfade ----------
+   Base state, and what mobile/reduced-motion/no-JS all get: the two
+   photos side by side (stacked below 760px), both fully visible —
+   an ordinary pair, nothing pinned. Only the two gated blocks below
+   turn it into one pinned frame that crossfades between them as
+   --scrub runs 0 → 1, so "the same bay, twice over" becomes a
+   transformation you scroll through rather than two static photos. */
+.h-daynight-scrub .h-scrub__pin { display: grid; gap: clamp(18px, 3vw, 30px); }
+@media (min-width: 760px) { .h-daynight-scrub .h-scrub__pin { grid-template-columns: 1fr 1fr; } }
+.h-daynight-scrub .h-scrub__frame { margin: 0; }
+.h-daynight-scrub .h-scrub__frame img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); display: block;
+}
+/* The caption sits under the photograph, aligned to its left edge:
+   a plate beneath a print, not text burned into the picture. Two
+   short lines, the second lighter, and never a sentence of selling —
+   the photograph is the argument, the caption only says what it is. */
+.h-daynight-scrub .h-scrub__frame figcaption { display: block; margin-top: clamp(18px, 2.2vw, 28px); }
+.h-scrub__lead {
+  display: block; font-family: var(--font-display); font-weight: 500;
+  font-size: 1rem; line-height: 1.3; color: #fff;
+}
+.h-scrub__sub { display: block; margin-top: 5px; font-size: 0.875rem; line-height: 1.45; color: #8b937f; }
+
+@media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .h-daynight-scrub.h-scrub { position: relative; height: 200vh; }
+    /* Padding on the pin insets the frames with it: an absolutely
+       positioned child resolves `inset: 0` against the padding box,
+       so this is what keeps the photograph clear of the sticky header
+       and leaves the caption room to breathe underneath. */
+    .h-daynight-scrub.h-scrub .h-scrub__pin {
+      position: sticky; top: 0; height: 100vh; display: block;
+      padding: clamp(84px, 11vh, 118px) 0 clamp(34px, 5vh, 56px);
+    }
+    .h-daynight-scrub.h-scrub .h-scrub__frame {
+      position: absolute; inset: 0; margin: 0;
+      display: flex; flex-direction: column;
+    }
+    /* .reveal (for the base layout above) is a CSS animation, and an
+       animation always wins over a plain opacity value no matter how
+       specific the selector — so it is switched off on both frames
+       here, or it would silently fight everything below. */
+    .h-daynight-scrub.h-scrub .h-scrub__frame.reveal { animation: none; opacity: 1; transform: none; }
+    .h-daynight-scrub.h-scrub .h-scrub__frame img {
+      flex: 1 1 auto; min-height: 0; width: 100%; height: auto;
+      aspect-ratio: auto; object-fit: cover; border-radius: var(--radius);
+    }
+    /* The crossfade rides on the picture alone, not the whole figure,
+       so the captions are free to hand over on their own timing. */
+    .h-daynight-scrub.h-scrub .h-scrub__frame--night img { opacity: var(--scrub, 0); }
+    /* Two photographs may dissolve through each other; two pieces of
+       text may not. The first caption is gone by 45% and the second
+       does not arrive until 55%, so there is a clean handover instead
+       of a moment of double-exposed words. */
+    .h-daynight-scrub.h-scrub .h-scrub__frame--day figcaption {
+      opacity: calc(1 - min(1, var(--scrub, 0) / 0.45));
+    }
+    .h-daynight-scrub.h-scrub .h-scrub__frame--night figcaption {
+      opacity: min(1, max(0, (var(--scrub, 0) - 0.55) / 0.45));
+    }
+  }
+  .h-daynight-scrub.h-scrub.is-scrub-js { position: relative; height: 200vh; }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__pin {
+    position: sticky; top: 0; height: 100vh; display: block;
+    padding: clamp(84px, 11vh, 118px) 0 clamp(34px, 5vh, 56px);
+  }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame {
+    position: absolute; inset: 0; margin: 0;
+    display: flex; flex-direction: column;
+  }
+  /* Same neutralising as the native block above, for the .rv-js
+     transition instead of a CSS animation. */
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame.reveal { transition: none; opacity: 1; transform: none; }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame img {
+    flex: 1 1 auto; min-height: 0; width: 100%; height: auto;
+    aspect-ratio: auto; object-fit: cover; border-radius: var(--radius);
+  }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame--night img { opacity: var(--scrub, 0); }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame--day figcaption {
+    opacity: calc(1 - min(1, var(--scrub, 0) / 0.45));
+  }
+  .h-daynight-scrub.h-scrub.is-scrub-js .h-scrub__frame--night figcaption {
+    opacity: min(1, max(0, (var(--scrub, 0) - 0.55) / 0.45));
+  }
+}
+
+/* ---------- The quiet range line ----------
+   Replaces an eight-box icon grid. Same eight internal links,
+   none of the visual noise. */
+.h-range { margin-top: clamp(26px, 4vw, 38px); color: var(--muted); font-size: 0.98rem; max-width: 76ch; }
+.h-range a { color: var(--ink); box-shadow: inset 0 -1px 0 var(--line); transition: box-shadow 0.18s ease; }
+.h-range a:hover { box-shadow: inset 0 -2px 0 var(--brass); }
+
+/* ---------- Recent work: pinned horizontal pan ----------
+   Base state: the ordinary .v-gallery grid, unchanged — what mobile,
+   reduced motion and no-JS all get. The two gated blocks below turn
+   the row into a flex track wider than the screen and pan it left
+   as --scrub runs 0 → 1, so scrolling down also moves you along the
+   row, the same trick behind Apple's product-page galleries. */
+@media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .h-gallery-scrub.h-scrub { position: relative; height: 280vh; }
+    .h-gallery-scrub.h-scrub .h-scrub__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+    .h-gallery-scrub.h-scrub .v-gallery {
+      display: flex; flex-wrap: nowrap; width: max-content; gap: clamp(18px, 2.5vw, 28px);
+      transform: translateX(calc(var(--scrub, 0) * (100vw - 100%)));
+    }
+    .h-gallery-scrub.h-scrub .v-gallery .v-tile { flex: none; width: min(72vw, 560px); }
+    .h-gallery-scrub.h-scrub .v-gallery .v-tile__img { aspect-ratio: 4 / 3; }
+    /* Tiles carry .reveal from the shared renderer for the base grid.
+       Once transform is what moves them into view, their own
+       view-timeline entry animation is redundant at best and can
+       double up with it at worst, so it's switched off here. */
+    .h-gallery-scrub.h-scrub .v-gallery .v-tile.reveal { animation: none; opacity: 1; transform: none; }
+  }
+  .h-gallery-scrub.h-scrub.is-scrub-js { position: relative; height: 280vh; }
+  .h-gallery-scrub.h-scrub.is-scrub-js .h-scrub__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+  .h-gallery-scrub.h-scrub.is-scrub-js .v-gallery {
+    display: flex; flex-wrap: nowrap; width: max-content; gap: clamp(18px, 2.5vw, 28px);
+    transform: translateX(calc(var(--scrub, 0) * (100vw - 100%)));
+  }
+  .h-gallery-scrub.h-scrub.is-scrub-js .v-gallery .v-tile { flex: none; width: min(72vw, 560px); }
+  .h-gallery-scrub.h-scrub.is-scrub-js .v-gallery .v-tile__img { aspect-ratio: 4 / 3; }
+  .h-gallery-scrub.h-scrub.is-scrub-js .v-gallery .v-tile.reveal { transition: none; opacity: 1; transform: none; }
+}
+
+/* ---------- How it works: pinned build ----------
+   Base state: today's plain .v-steps grid, line hidden — what
+   mobile, reduced motion and no-JS all get. The two gated blocks
+   below pin the section, draw a line across as --scrub runs 0 → 1,
+   and bring each step up to full opacity in turn as the line
+   reaches it (plain calc()/min()/max() math on --scrub, not more
+   scroll-timeline machinery, so it works identically whichever path
+   is driving --scrub). */
+.h-process-scrub__line { display: none; }
+@media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .h-process-scrub.h-scrub { position: relative; height: 240vh; }
+    .h-process-scrub.h-scrub .h-scrub__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+    /* The line above implies one row — force it, rather than leaving
+       .v-steps free to wrap to two between 860px and its own 1020px
+       breakpoint. */
+    .h-process-scrub.h-scrub .v-steps { grid-template-columns: repeat(4, 1fr); }
+    .h-process-scrub.h-scrub .h-process-scrub__line {
+      display: block; position: relative; height: 2px; background: var(--line); margin: 0 0 clamp(28px, 4vw, 44px);
+    }
+    .h-process-scrub.h-scrub .h-process-scrub__line i {
+      position: absolute; inset: 0; transform-origin: left; background: var(--brass); transform: scaleX(var(--scrub, 0));
+    }
+    /* .v-step carries .reveal from the shared renderer for the base
+       grid; its animation would otherwise override the calc()-driven
+       opacity below regardless of specificity, so it's switched off
+       for this pinned build instead. */
+    .h-process-scrub.h-scrub .v-step.reveal { animation: none; }
+    .h-process-scrub.h-scrub .v-step { opacity: 0.4; }
+    .h-process-scrub.h-scrub .v-step:nth-child(1) { opacity: calc(0.4 + 0.6 * min(1, max(0, var(--scrub, 0) / 0.15))); }
+    .h-process-scrub.h-scrub .v-step:nth-child(2) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.25) / 0.3))); }
+    .h-process-scrub.h-scrub .v-step:nth-child(3) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.5) / 0.3))); }
+    .h-process-scrub.h-scrub .v-step:nth-child(4) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.75) / 0.25))); }
+  }
+  .h-process-scrub.h-scrub.is-scrub-js { position: relative; height: 240vh; }
+  .h-process-scrub.h-scrub.is-scrub-js .h-scrub__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .h-process-scrub.h-scrub.is-scrub-js .v-steps { grid-template-columns: repeat(4, 1fr); }
+  .h-process-scrub.h-scrub.is-scrub-js .h-process-scrub__line {
+    display: block; position: relative; height: 2px; background: var(--line); margin: 0 0 clamp(28px, 4vw, 44px);
+  }
+  .h-process-scrub.h-scrub.is-scrub-js .h-process-scrub__line i {
+    position: absolute; inset: 0; transform-origin: left; background: var(--brass); transform: scaleX(var(--scrub, 0));
+  }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step.reveal { transition: none; transform: none; }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step { opacity: 0.4; }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step:nth-child(1) { opacity: calc(0.4 + 0.6 * min(1, max(0, var(--scrub, 0) / 0.15))); }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step:nth-child(2) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.25) / 0.3))); }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step:nth-child(3) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.5) / 0.3))); }
+  .h-process-scrub.h-scrub.is-scrub-js .v-step:nth-child(4) { opacity: calc(0.4 + 0.6 * min(1, max(0, (var(--scrub, 0) - 0.75) / 0.25))); }
+}
+
+/* ============================================================
+   Office pages — readability and conversion pass (Aug 2026)
+   ------------------------------------------------------------
+   The office cluster was drawing impressions and no clicks. The
+   copy was not the problem: 2,900 words at an 18-word average
+   sentence is comfortable prose. The problem was that it arrived
+   as an unbroken column with twenty bold words in it and nothing
+   a reader could take at a glance.
+
+   Everything below exists to give the eye somewhere to land:
+   a price the reader is looking for, a table that answers the
+   question without being read, a verdict at the head of every
+   long answer, and a way to make contact that does not require
+   scrolling back to the top.
+   ============================================================ */
+
+/* ---- Price anchor --------------------------------------------------
+   The single most requested fact on a commercial page and, until now,
+   the one number the site did not contain. It sits directly under the
+   hero CTAs, where the reader who came to find out "roughly what does
+   this cost" would otherwise bounce. Deliberately not a card that
+   looks like a quote: it is a statement of range, hedged in the copy. */
+.o-price {
+  border-left: 3px solid var(--brass);
+  padding: 4px 0 4px 20px;
+  margin: 26px 0 0;
+  max-width: 56ch;
+}
+.o-price__kicker {
+  display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--brass); margin-bottom: 8px;
+}
+.o-price__headline {
+  font-family: var(--font-display); font-size: clamp(1.14rem, 1.9vw, 1.4rem);
+  line-height: 1.25; color: var(--ink); margin: 0 0 10px;
+}
+.o-price__body { font-size: 0.97rem; color: var(--body); margin: 0 0 8px; }
+.o-price__note { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+/* ---- Decision table ------------------------------------------------
+   Four rows, three columns, and the whole argument of the page in a
+   shape that survives being skimmed. The third column carries the
+   mistake rather than a feature, which is what stops it reading as a
+   product grid.
+
+   On narrow screens the table stops being a table and each row becomes
+   a labelled card, because a three-column table at 380px is unreadable
+   however much it scrolls. The labels come from data-label attributes
+   written by the page, so the header row is not lost on mobile. */
+.o-decision { width: 100%; border-collapse: collapse; }
+.o-decision th, .o-decision td {
+  text-align: left; padding: 16px 18px; border-bottom: 1px solid var(--line-soft);
+  font-size: 0.95rem; vertical-align: top;
+}
+.o-decision thead th {
+  font-family: var(--font-body); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.o-decision tbody th {
+  font-family: var(--font-display); font-weight: 560; font-size: 1.02rem;
+  color: var(--ink); width: 26%;
+}
+.o-decision tbody th a { color: inherit; border-bottom: 1px solid var(--brass-soft); }
+.o-decision tbody th a:hover { border-bottom-color: var(--brass); }
+.o-decision__miss { color: var(--muted); }
+.o-decision tbody tr:last-child th, .o-decision tbody tr:last-child td { border-bottom: 0; }
+
+@media (max-width: 760px) {
+  /* Once the rows are cards they carry their own border, so the shared
+     .w-tablewrap chrome around them has to go or every row is framed
+     twice. Scoped to a wrapper that actually contains a decision table. */
+  .w-tablewrap:has(.o-decision) { border: 0; background: none; border-radius: 0; overflow: visible; }
+  .o-decision thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .o-decision tbody tr {
+    display: block; background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 14px;
+  }
+  .o-decision tbody th, .o-decision tbody td {
+    display: block; width: auto; padding: 0; border-bottom: 0;
+  }
+  .o-decision tbody th { font-size: 1.1rem; margin-bottom: 12px; }
+  .o-decision tbody td::before {
+    content: attr(data-label); display: block; font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin-bottom: 4px;
+  }
+  .o-decision tbody td + td { margin-top: 12px; }
+}
+
+/* ---- Verdict-first answers ----------------------------------------
+   The office FAQ answers run to three or four hundred words. The
+   reader wants the yes or no first. Weight and colour carry it;
+   there is no separate line, because the verdict should read as the
+   opening of the answer rather than a label above it. */
+.v-faq__verdict { color: var(--ink); font-weight: 650; }
+.o-quick__a strong { color: var(--ink); font-weight: 650; }
+
+/* ---- Google reviews ------------------------------------------------
+   Renders only when content.js has real reviews in it. Stars are
+   decorative; the aria-label on the span carries the rating, and the
+   attribution names the source so the quote is checkable. */
+.o-reviews { display: grid; gap: 20px; }
+@media (min-width: 780px) { .o-reviews { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+.o-review {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px 26px; margin: 0; display: flex; flex-direction: column; gap: 12px;
+}
+.o-review__stars { color: var(--brass); font-size: 0.95rem; letter-spacing: 0.12em; }
+.o-review blockquote { margin: 0; }
+.o-review blockquote p { margin: 0; color: var(--body); font-size: 0.97rem; }
+.o-review figcaption { margin-top: auto; font-size: 0.86rem; }
+.o-review figcaption strong { display: block; color: var(--ink); }
+.o-review figcaption span { color: var(--muted); }
+.o-review__more { color: var(--muted); }
+.o-reviews__source { margin-top: 18px; font-size: 0.88rem; color: var(--muted); }
+
+/* ---- Sticky contact bar (small screens only) -----------------------
+   The office page is read on a phone by someone standing in front of
+   the window they want covered. Making them scroll back to the hero to
+   act on that is the most avoidable loss on the page.
+
+   Small screens only: on a desktop the header is already sticky and a
+   fixed bar would just take space. It is hidden until the reader is
+   past the hero (`is-past-hero` on <body>, set in vwh.js), so it never
+   competes with the hero's own buttons, and the page gets bottom
+   padding so the bar cannot cover the end of the form. */
+.o-stickybar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: none; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 253, 249, 0.96);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-top: 1px solid var(--line);
+  transform: translateY(100%); transition: transform 0.25s ease;
+}
+.o-stickybar a { flex: 1; text-align: center; justify-content: center; }
+.o-stickybar__price {
+  flex: 0 0 100%; text-align: center; font-size: 0.74rem; color: var(--muted);
+  margin: 0 0 2px; order: -1;
+}
+@media (max-width: 860px) {
+  .o-stickybar { display: flex; flex-wrap: wrap; }
+  body.is-past-hero .o-stickybar { transform: translateY(0); }
+  body.has-stickybar { padding-bottom: 96px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .o-stickybar { transition: none; }
+}
+
+/* ============================================================
+   Automika agency credit (sitewide colophon)
+   ------------------------------------------------------------
+   Ported from the structural-engineer site's .am-credit banner.
+   Two things are deliberately NOT ported.
+
+   It is static HTML here, not injected by JavaScript. The
+   original builds itself in automika-credit.js after
+   </footer>. On this site the entire argument for tools/bake.js
+   is that crawlers behind AI answer engines do not run
+   JavaScript, and a followed agency credit is precisely the
+   link that ought to be in the source. So the markup sits in
+   the page, after the footer, and the only script involved is
+   the click event.
+
+   The plate colour is this site's, not the original's. There it
+   is #0C172C against a #0E1A32 navy footer. Here the footer is
+   --ink #1c211c, so the same 12% step down lands on #191d19.
+   The relationship is what was ported, not the hex.
+
+   The wordmark IS Automika's own spec and stays: Inter 800,
+   letter-spacing -0.035em, white, stop in #2563EB. The blue is
+   foreign to this site's brass-and-green palette on purpose. It
+   is the agency's mark, and a colophon that restyles itself per
+   client stops being a mark at all. It is live text, so there is
+   no asset to ship and it stays sharp at any size.
+   ============================================================ */
+.am-credit {
+  background: #191d19;
+  /* Deliberately at the edge of visibility. The tone change does
+     most of the separating; this only stops the two plates
+     bleeding together. */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 21px 20px;
+  text-align: center;
+}
+.am-credit__inner {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* Row gap only matters once it wraps on a narrow phone. */
+  gap: 6px 14px;
+}
+.am-credit__by {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.2;
+  /* The original sets 0.42, which lands at 4.05:1 on its navy plate and
+     4.05:1 on this one: a faithful port, and both fail WCAG AA for
+     normal text at 14.4px. 0.48 clears it at 4.84:1 and is not a change
+     anyone can see with the two side by side. The wordmark, the stop,
+     the type spec and the layout are all exactly as ported; this is the
+     label only. */
+  color: rgba(255, 255, 255, 0.48);
+}
+/* Automika's own logo spec: Inter 800, letter-spacing -0.035em, #FFFFFF. */
+.am-credit__mark {
+  font-family: var(--font-body);
+  font-size: 1.16rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.am-credit__dot { color: #2563eb; }
+.am-credit__mark:hover { color: #fff; opacity: 0.78; }
+.am-credit__mark:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+@media (max-width: 400px) {
+  /* It wraps to two lines here. Trim the padding so wrapping does
+     not add height the footer has no use for, and hold the
+     wordmark at its size rather than letting it dominate. */
+  .am-credit { padding: 18px 16px; }
+  .am-credit__by { font-size: 0.85rem; }
+  .am-credit__mark { font-size: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .am-credit__mark { transition: none; }
+}
+/* The sticky contact bar on the office pages is fixed to the bottom of
+   the viewport, so at the very end of the page it would otherwise sit
+   on top of the credit. The bar's own body padding clears the form; the
+   credit needs the same clearance for the last screen. */
+@media (max-width: 860px) {
+  body.has-stickybar .am-credit { padding-bottom: 34px; }
+}
+
+/* ============================================================
+   Floating WhatsApp button — mobile only
+   ------------------------------------------------------------
+   Ported from the structural-engineer site's .whatsapp-fab.
+   The design principle is the one worth carrying: a pill in the
+   site's own palette with the official WhatsApp green reserved
+   for the glyph circle. A plain green blob would read as a
+   third-party widget bolted on; this reads as part of the site
+   and is still recognised instantly.
+
+   Two departures. It is an anchor, not a button: the original
+   opens an enquiry modal first, and this site has no modal, so
+   the link goes straight to wa.me with the message prefilled and
+   works with no JavaScript at all. And it is static markup in
+   the page rather than injected, for the same reason the
+   Automika credit is.
+
+   It is NOT on the office pages. Those already carry the sticky
+   contact bar whose primary action is the same WhatsApp thread,
+   and two floating WhatsApp controls on one screen is a worse
+   page, not a keener one. It is also off on /contact, where it
+   would sit over the form it is competing with.
+   ============================================================ */
+.vwh-wa-fab { display: none; }
+
+@media (max-width: 720px) {
+  .vwh-wa-fab {
+    position: fixed;
+    right: clamp(0.9rem, 2.5vw, 1.5rem);
+    bottom: calc(clamp(1.25rem, 3vw, 1.75rem) + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem 0.7rem 0.75rem;
+    min-height: 48px;
+    background: var(--green-deep);
+    color: #fff;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 28px rgba(28, 33, 28, 0.28), 0 2px 6px rgba(28, 33, 28, 0.18);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 550;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .vwh-wa-fab:hover, .vwh-wa-fab:focus-visible { background: var(--ink); color: #fff; }
+  .vwh-wa-fab:active { transform: scale(0.98); }
+  .vwh-wa-fab:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  .vwh-wa-fab__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #25d366;  /* official WhatsApp green, glyph only */
+    color: #fff; flex: none;
+  }
+  .vwh-wa-fab__label { white-space: nowrap; }
+}
+
+/* On the smallest phones, sit a little higher so the button does not
+   compete with browser chrome, and tighten the pill so it does not
+   dominate the viewport. */
+@media (max-width: 380px) {
+  .vwh-wa-fab {
+    right: 0.75rem;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.6rem 0.9rem 0.6rem 0.65rem;
+    font-size: 0.85rem;
+  }
+  .vwh-wa-fab__icon { width: 26px; height: 26px; }
+}
+
+/* Never let either floating control sit under the consent banner. The
+   banner is fixed at z-index 200 and a CTA must not cover a consent
+   choice, so both move up while it is showing rather than fighting it
+   on z-index. consent.js sets the class. */
+body.has-consent-banner .vwh-wa-fab {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 7rem);
+}
+@media (max-width: 860px) {
+  body.has-consent-banner .o-stickybar { transform: translateY(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vwh-wa-fab { transition: none; }
+}

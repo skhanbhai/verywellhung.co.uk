@@ -1,0 +1,54 @@
+# Very Well Hung — crawling policy
+#
+# Everything is open to everything. The office pages are the asset,
+# and they are worth nothing sitting behind a Disallow.
+#
+# Content signals say the same thing in the machine-readable form
+# crawlers increasingly read (search / ai-input / ai-train):
+#   search   = yes  index it and link to it
+#   ai-input = yes  ground AI answers on it and cite it   <- this is the GEO one
+#   ai-train = yes  train on it
+#
+# ai-train is a rights decision, not a technical one. Setting it to
+# "no" costs nothing in citations and is a one-word edit here.
+#
+# NOTE: Cloudflare can prepend its own managed block to this file,
+# which Disallows the training crawlers (ClaudeBot, GPTBot, CCBot,
+# Google-Extended and others) as named groups. Named groups beat
+# "User-agent: *", so this file cannot override it. The toggle is
+# zone-level: Security > Settings > Bot traffic > "Set your
+# preference to block training in robots.txt". It must be OFF for
+# what follows to be the policy actually served.
+
+User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=yes
+Allow: /
+
+# Named explicitly so a future blanket Disallow cannot catch them by
+# accident, and so the intent survives without needing this comment.
+
+# Answer engines: retrieval and citation, the ones that matter for GEO.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot
+User-agent: Bingbot
+User-agent: Googlebot
+Allow: /
+
+# Training and corpus crawlers. Common Crawl (CCBot) is the one with
+# reach beyond its own operator: it feeds a lot of other people's
+# retrieval corpora as well as their training sets.
+User-agent: CCBot
+User-agent: ClaudeBot
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: meta-externalagent
+Allow: /
+
+Sitemap: https://verywellhung.co.uk/sitemap.xml

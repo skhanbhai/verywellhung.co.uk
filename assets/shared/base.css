@@ -1,0 +1,283 @@
+/* ============================================================
+   Very Well Hung — SHARED BASE STYLES
+   One base, three directions. Each option's theme.css overrides
+   the custom properties below (colours, fonts, radii) and adds a
+   few direction-specific touches. This is what keeps the three
+   demos one codebase, not three.
+   ============================================================ */
+
+:root {
+  /* Themed by each option — these are neutral defaults. */
+  --v-ink: #23201c;
+  --v-ink-soft: #4a443c;
+  --v-body: #5c554c;
+  --v-muted: #8c857a;
+  --v-paper: #ffffff;
+  --v-bg: #f7f3ec;
+  --v-bg-soft: #fbf8f2;
+  --v-line: rgba(35,32,28,0.12);
+  --v-line-soft: rgba(35,32,28,0.07);
+  --v-accent: #8a6d4b;          /* warm taupe / wood */
+  --v-accent-deep: #6b5236;
+  --v-accent-soft: rgba(138,109,75,0.10);
+  --v-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --v-font-display: 'Fraunces', Georgia, serif;
+  --v-radius: 14px;
+  --v-radius-sm: 9px;
+  --v-radius-lg: 24px;
+  --v-maxw: 1140px;
+  --v-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --v-shadow-sm: 0 1px 2px rgba(35,32,28,0.05), 0 8px 24px -16px rgba(35,32,28,0.30);
+  --v-shadow: 0 24px 60px -30px rgba(35,32,28,0.40);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  font-family: var(--v-font-body);
+  color: var(--v-ink);
+  background: var(--v-bg);
+  line-height: 1.62;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--v-accent); outline-offset: 3px; border-radius: 4px; }
+
+h1, h2, h3, h4 { font-family: var(--v-font-display); font-weight: 500; line-height: 1.12; letter-spacing: -0.01em; color: var(--v-ink); }
+
+.v-container { width: 100%; max-width: var(--v-maxw); margin: 0 auto; padding: 0 20px; }
+@media (min-width: 760px) { .v-container { padding: 0 36px; } }
+
+.v-eyebrow {
+  display: inline-block; color: var(--v-accent-deep);
+  font-family: var(--v-font-body); font-weight: 700; font-size: 0.7rem;
+  letter-spacing: 0.2em; text-transform: uppercase; margin: 0 0 12px;
+}
+
+/* ---------- Demo badge ---------- */
+.v-demo-badge {
+  background: var(--v-ink); color: var(--v-bg);
+  font-family: var(--v-font-body); font-size: 0.74rem; font-weight: 500;
+  text-align: center; padding: 8px 16px; letter-spacing: 0.01em;
+}
+.v-demo-badge a { color: var(--v-bg); text-decoration: underline; font-weight: 700; }
+
+/* ---------- Buttons ---------- */
+.v-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: var(--v-font-body); font-weight: 600; font-size: 0.96rem; line-height: 1;
+  padding: 15px 26px; border-radius: 999px; border: 1.5px solid transparent;
+  transition: transform .25s var(--v-ease), background .25s var(--v-ease), box-shadow .25s var(--v-ease), color .25s var(--v-ease), border-color .25s var(--v-ease);
+}
+.v-btn--primary { background: var(--v-ink); color: var(--v-bg); }
+.v-btn--primary:hover { transform: translateY(-2px); box-shadow: var(--v-shadow); }
+.v-btn--accent { background: var(--v-accent); color: #fff; }
+.v-btn--accent:hover { background: var(--v-accent-deep); transform: translateY(-2px); box-shadow: var(--v-shadow); }
+.v-btn--ghost { background: transparent; color: var(--v-ink); border-color: var(--v-line); }
+.v-btn--ghost:hover { border-color: var(--v-ink); transform: translateY(-1px); }
+.v-btn--lg { padding: 17px 32px; font-size: 1.02rem; }
+
+/* ---------- Header / nav ---------- */
+.v-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--v-bg) 90%, transparent);
+  backdrop-filter: saturate(150%) blur(12px);
+  -webkit-backdrop-filter: saturate(150%) blur(12px);
+  border-bottom: 1px solid var(--v-line);
+}
+.v-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+.v-logo { display: inline-flex; flex-direction: column; line-height: 1.1; }
+.v-logo__name { font-family: var(--v-font-display); font-weight: 600; font-size: 1.18rem; letter-spacing: -0.01em; }
+.v-logo__tag { font-family: var(--v-font-body); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--v-muted); margin-top: 3px; }
+.v-nav__links { display: flex; align-items: center; gap: 22px; }
+.v-nav__links a { font-family: var(--v-font-body); font-size: 0.92rem; font-weight: 500; color: var(--v-ink-soft); }
+.v-nav__links a:hover { color: var(--v-accent-deep); }
+.v-nav__cta {
+  padding: 11px 20px; border-radius: 999px; background: var(--v-accent); color: #fff !important;
+  font-weight: 600;
+}
+.v-nav__cta:hover { background: var(--v-accent-deep); }
+.v-nav__toggle { display: none; width: 44px; height: 44px; background: transparent; border: 1px solid var(--v-line); border-radius: 10px; padding: 0; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+.v-nav__toggle span { width: 20px; height: 2px; background: var(--v-ink); display: block; }
+
+@media (max-width: 880px) {
+  .v-nav__toggle { display: flex; }
+  .v-nav__links {
+    position: absolute; top: 100%; right: 0; left: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--v-paper); border-bottom: 1px solid var(--v-line);
+    padding: 8px 20px 18px; box-shadow: var(--v-shadow);
+    display: none;
+  }
+  nav.is-nav-open .v-nav__links { display: flex; }
+  .v-nav__links a { padding: 13px 0; border-bottom: 1px solid var(--v-line-soft); }
+  .v-nav__cta { margin-top: 12px; text-align: center; }
+}
+
+/* ---------- Hero scaffold ---------- */
+.v-hero { padding: clamp(40px, 6vw, 84px) 0 clamp(32px, 4vw, 56px); }
+.v-hero__grid { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+@media (min-width: 880px) { .v-hero__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.v-hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); margin: 0 0 18px; max-width: 16ch; }
+.v-hero h1 em { font-style: italic; color: var(--v-accent-deep); }
+.v-hero__lede { font-size: clamp(1.02rem, 1.7vw, 1.18rem); color: var(--v-body); max-width: 54ch; margin: 0 0 26px; }
+.v-hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.v-hero__media { border-radius: var(--v-radius-lg); overflow: hidden; box-shadow: var(--v-shadow); border: 1px solid var(--v-line); }
+
+/* ---------- Sections ---------- */
+.v-section { padding: clamp(48px, 6vw, 88px) 0; }
+.v-section--tint { background: var(--v-bg-soft); }
+.v-section--ink { background: var(--v-ink); color: var(--v-bg); }
+.v-section--ink h2, .v-section--ink h3 { color: var(--v-bg); }
+.v-section--ink .v-eyebrow { color: color-mix(in srgb, var(--v-accent) 70%, #fff); }
+/* Cards keep their light background inside ink sections, so their text
+   must stay ink — not the section's inverted cream. */
+.v-section--ink .v-card h3, .v-section--ink .v-card h4 { color: var(--v-ink); }
+.v-section__head { max-width: 60ch; margin: 0 0 clamp(28px, 4vw, 44px); }
+.v-section__head h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin: 0 0 12px; }
+.v-section__head p { color: var(--v-body); margin: 0; font-size: 1.02rem; }
+.v-section--ink .v-section__head p { color: color-mix(in srgb, var(--v-bg) 78%, transparent); }
+
+/* ---------- Service cards ---------- */
+.v-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 680px) { .v-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .v-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+.v-card { background: var(--v-paper); border: 1px solid var(--v-line); border-radius: var(--v-radius); padding: 26px 24px; box-shadow: var(--v-shadow-sm); transition: transform .3s var(--v-ease), box-shadow .3s var(--v-ease); }
+.v-card:hover { transform: translateY(-3px); box-shadow: var(--v-shadow); }
+.v-card__title { font-size: 1.22rem; margin: 0 0 10px; }
+.v-card__blurb { color: var(--v-ink-soft); margin: 0 0 10px; font-size: 0.97rem; }
+.v-card__detail { color: var(--v-muted); margin: 0; font-size: 0.9rem; }
+
+/* ---------- Gallery placeholder tiles ---------- */
+.v-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (min-width: 760px) { .v-gallery { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+.v-tile { margin: 0; }
+.v-tile__ph {
+  aspect-ratio: 4 / 3; border-radius: var(--v-radius); overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, var(--v-bg-soft), var(--v-bg-soft) 14px, color-mix(in srgb, var(--v-accent) 8%, var(--v-bg-soft)) 14px, color-mix(in srgb, var(--v-accent) 8%, var(--v-bg-soft)) 28px);
+  border: 1px dashed color-mix(in srgb, var(--v-accent) 45%, var(--v-line));
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  color: var(--v-accent-deep); text-align: center; padding: 16px;
+}
+.v-tile__ph span { font-family: var(--v-font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.v-tile__ph code { font-family: ui-monospace, Menlo, monospace; font-size: 0.7rem; color: var(--v-muted); background: var(--v-paper); padding: 2px 8px; border-radius: 6px; }
+.v-tile figcaption { margin-top: 8px; font-family: var(--v-font-body); font-size: 0.88rem; color: var(--v-ink-soft); }
+
+/* Real photo tiles */
+.v-tile__img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
+  border-radius: var(--v-radius); border: 1px solid var(--v-line);
+  background: var(--v-bg-soft);
+}
+
+/* ---------- Photo on service cards ---------- */
+.v-card__img {
+  width: 100%; aspect-ratio: 16 / 11; object-fit: cover; display: block;
+  background: var(--v-bg-soft);
+}
+.v-card--photo { padding: 0; overflow: hidden; }
+.v-card--photo .v-card__text { padding: 22px 22px 24px; }
+
+/* ---------- Hero & inline section images ---------- */
+.v-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.v-hero__media figcaption { font-family: var(--v-font-body); font-size: 0.76rem; color: var(--v-muted); padding: 9px 14px; background: var(--v-paper); }
+.v-about__img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  border-radius: var(--v-radius); border: 1px solid var(--v-line);
+}
+
+/* ---------- Process steps ---------- */
+.v-steps { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 680px) { .v-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .v-steps { grid-template-columns: repeat(4, 1fr); } }
+.v-step { background: var(--v-paper); border: 1px solid var(--v-line); border-radius: var(--v-radius); padding: 24px 20px; }
+.v-step__num { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--v-accent-soft); color: var(--v-accent-deep); font-family: var(--v-font-display); font-weight: 600; margin-bottom: 14px; }
+.v-step h4 { font-size: 1.08rem; margin: 0 0 8px; }
+.v-step p { color: var(--v-body); margin: 0; font-size: 0.93rem; }
+
+/* ---------- Why / lists ---------- */
+.v-why { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 760px) { .v-why { grid-template-columns: repeat(2, 1fr); } }
+.v-why li { position: relative; padding-left: 30px; color: var(--v-ink-soft); }
+.v-why li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--v-accent); font-weight: 800; }
+
+/* review THEMES — chips, never quotes */
+.v-themes { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.v-theme { background: var(--v-paper); border: 1px solid var(--v-line); border-radius: 999px; padding: 9px 16px; font-family: var(--v-font-body); font-size: 0.88rem; color: var(--v-ink-soft); }
+.v-themes-note { color: var(--v-muted); font-size: 0.82rem; margin: 14px 0 0; }
+
+/* ---------- FAQ ---------- */
+.v-faqs { max-width: 760px; }
+.v-faq { border-bottom: 1px solid var(--v-line); padding: 6px 0; }
+.v-faq summary { cursor: pointer; list-style: none; font-family: var(--v-font-display); font-size: 1.08rem; padding: 14px 0; position: relative; padding-right: 32px; }
+.v-faq summary::-webkit-details-marker { display: none; }
+.v-faq summary::after { content: "+"; position: absolute; right: 4px; top: 12px; font-size: 1.4rem; color: var(--v-accent); }
+.v-faq[open] summary::after { content: "–"; }
+.v-faq p { color: var(--v-body); margin: 0 0 16px; }
+
+/* ---------- Forms ---------- */
+.v-form { display: grid; gap: 16px; }
+.v-field { display: grid; gap: 7px; }
+.v-field label { font-family: var(--v-font-body); font-weight: 600; font-size: 0.9rem; }
+.v-field input, .v-field textarea {
+  width: 100%; font-family: var(--v-font-body); font-size: 0.98rem; color: var(--v-ink);
+  padding: 13px 15px; border: 1.5px solid var(--v-line); border-radius: var(--v-radius-sm);
+  background: var(--v-paper); transition: border-color .2s var(--v-ease);
+}
+.v-field textarea { resize: vertical; min-height: 110px; }
+.v-field input:focus, .v-field textarea:focus { outline: none; border-color: var(--v-accent); }
+.v-form__done { background: var(--v-accent-soft); border: 1px solid var(--v-accent); border-radius: var(--v-radius-sm); padding: 16px; color: var(--v-accent-deep); }
+.v-form__privacy { color: var(--v-muted); font-size: 0.8rem; margin: 4px 0 0; }
+
+.v-contact-grid { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); }
+@media (min-width: 880px) { .v-contact-grid { grid-template-columns: 1.2fr 0.8fr; } }
+.v-contact__info { display: grid; gap: 14px; align-content: start; }
+.v-contact__row { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px solid var(--v-line-soft); }
+.v-contact__row strong { font-family: var(--v-font-body); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--v-muted); }
+
+/* ---------- About / trust ---------- */
+.v-about { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3vw, 40px); align-items: center; }
+@media (min-width: 880px) { .v-about { grid-template-columns: 0.8fr 1.2fr; } }
+.v-about__photo .v-tile__ph { aspect-ratio: 1 / 1; }
+.v-trust-line { font-family: var(--v-font-display); font-size: clamp(1.2rem, 2.4vw, 1.7rem); color: var(--v-ink); max-width: 24ch; }
+
+/* ---------- CTA band ---------- */
+/* Dark ink wash over a subtle draped-linen texture. Texture = local WebP
+   (Unsplash stock, illustrative only, NOT Simone's work); ~90% dark overlay
+   keeps light text readable. Replace with Simone's own fabric shot before live. */
+.v-band {
+  background-color: var(--v-ink);
+  background-image:
+    linear-gradient(rgba(24,21,17,0.89), rgba(24,21,17,0.91)),
+    url('/assets/shared/img/band-linen-texture.webp');
+  background-size: cover; background-position: center;
+  color: var(--v-bg); padding: clamp(48px, 6vw, 84px) 0; text-align: center;
+}
+.v-band h2 { color: var(--v-bg); font-size: clamp(1.7rem, 3.6vw, 2.6rem); margin: 0 0 14px; }
+.v-band h2 em { font-style: italic; color: color-mix(in srgb, var(--v-accent) 65%, #fff); }
+.v-band p { color: color-mix(in srgb, var(--v-bg) 80%, transparent); max-width: 52ch; margin: 0 auto 26px; }
+.v-band .v-btn--ghost { color: var(--v-bg); border-color: color-mix(in srgb, var(--v-bg) 40%, transparent); }
+.v-band .v-btn--ghost:hover { border-color: var(--v-bg); }
+
+/* ---------- Footer ---------- */
+.v-footer { border-top: 1px solid var(--v-line); background: var(--v-bg-soft); padding: clamp(40px, 5vw, 64px) 0 32px; }
+.v-footer__cols { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 760px) { .v-footer__cols { grid-template-columns: 1.6fr 1fr 1fr; } }
+.v-footer__name { font-family: var(--v-font-display); font-size: 1.2rem; display: block; }
+.v-footer__tag { color: var(--v-muted); font-size: 0.82rem; display: block; margin: 4px 0 12px; }
+.v-footer p { color: var(--v-body); font-size: 0.92rem; margin: 0; max-width: 40ch; }
+.v-footer h5 { font-family: var(--v-font-body); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v-muted); margin: 0 0 12px; }
+.v-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.v-footer ul a, .v-footer ul li { color: var(--v-ink-soft); font-size: 0.92rem; }
+.v-footer ul a:hover { color: var(--v-accent-deep); }
+.v-footer__legal { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--v-line); color: var(--v-muted); font-size: 0.8rem; }
+
+.v-section__cta { margin-top: clamp(28px, 4vw, 44px); }
