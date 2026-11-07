@@ -42,6 +42,71 @@
     if (t) t.focus();
   });
 
+  /* ---------- Landing page memory ----------
+     Which page a visitor ARRIVED on is the only thing that tells us
+     which page earned an enquiry; the form itself always lives on
+     /contact or /office-blinds. The first page of the session is
+     kept in sessionStorage: nothing persistent, no cookie, and it
+     never leaves the browser except inside a form or WhatsApp
+     message the visitor has chosen to send. The GBP website link
+     carries ?utm_source=google&utm_medium=gbp, so a profile visit
+     shows up here as the query string on the landing page. */
+  var LANDING = (function () {
+    var here = location.pathname + location.search;
+    var fresh = { page: here, ref: document.referrer || '' };
+    try {
+      var saved = sessionStorage.getItem('vwh_landing');
+      if (saved) return JSON.parse(saved);
+      sessionStorage.setItem('vwh_landing', JSON.stringify(fresh));
+    } catch (e) { /* private mode or storage blocked: fall back to this page */ }
+    return fresh;
+  })();
+
+  // One readable string for the sheet's Page column:
+  //   /fire-retardant-office-blinds-london from google.com > /office-blinds
+  function landingNote() {
+    var s = LANDING.page;
+    if (LANDING.ref) {
+      try {
+        var host = new URL(LANDING.ref).hostname.replace(/^www\./, '');
+        if (host && host !== location.hostname) s += ' from ' + host;
+      } catch (e) { /* unparseable referrer: leave it out */ }
+    }
+    if (LANDING.page !== location.pathname + location.search) s += ' > ' + location.pathname;
+    return s;
+  }
+
+  function track(name, params) {
+    try {
+      if (window.VWH_CONSENT && typeof window.VWH_CONSENT.track === 'function') {
+        window.VWH_CONSENT.track(name, params || {});
+      }
+    } catch (e) { /* analytics must never break a tap on a phone number */ }
+  }
+
+  /* WhatsApp and phone taps cannot be logged by a sheet, so the
+     landing page rides along inside the WhatsApp message itself,
+     where Simone sees it, and both are sent to GA4 as events when
+     the visitor has consented. */
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try {
+        var u = new URL(a.href);
+        var t = u.searchParams.get('text') || 'Hi Simone';
+        if (t.indexOf('verywellhung.co.uk') < 0) {
+          u.searchParams.set('text', t + ' (via verywellhung.co.uk' + LANDING.page + ')');
+          a.href = u.toString();
+        }
+      } catch (e) { /* leave the link as it was */ }
+      track('whatsapp_click', { page: location.pathname, landing: LANDING.page });
+    });
+  });
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      track('phone_click', { page: location.pathname, landing: LANDING.page });
+    });
+  });
+
   /* ---------- helpers ---------- */
   var VWH = window.VWH;
   function get(path) {
@@ -251,7 +316,16 @@
       data[key] = el.value;
     });
     data.pageUrl = location.pathname;
+    data.landing = landingNote();
     return data;
+  }
+
+  // The Apps Script writes e.parameter.ref into the sheet's Page
+  // column ahead of pageUrl, so the landing page reaches the sheet
+  // without a backend redeploy.
+  function endpointWithRef() {
+    return ENDPOINT + (ENDPOINT.indexOf('?') < 0 ? '?' : '&') +
+      'ref=' + encodeURIComponent(landingNote());
   }
 
   document.querySelectorAll('form[data-vwh-form]').forEach(function (form) {
@@ -309,7 +383,7 @@
       setBusy(form, true);
 
       readPhotos(form).then(function (photos) {
-        return fetch(ENDPOINT, {
+        return fetch(endpointWithRef(), {
           method: 'POST',
           // text/plain keeps this a "simple" request, so the browser
           // sends no preflight — Apps Script cannot answer OPTIONS.
@@ -341,9 +415,16 @@
         var mnt = form.querySelector('[data-turnstile-mount]');
         if (mnt) mnt.hidden = true;
 
-        if (window.VWH_CONSENT) {
-          window.VWH_CONSENT.track('generate_lead', { form: source });
-        }
+        track('generate_lead', { form: source, landing: LANDING.page });
+
+        // Then on to /thank-you. A page view there is the one
+        // conversion signal GA4 and any future ad account can both
+        // count without element or click-text triggers. The inline
+        // note above stays visible for the half second before the
+        // move, and is the whole confirmation if the move fails.
+        setTimeout(function () {
+          location.assign('/thank-you?from=' + encodeURIComponent(source));
+        }, 500);
       }).catch(function (err) {
         setBusy(form, false);
         if (window.turnstile) {

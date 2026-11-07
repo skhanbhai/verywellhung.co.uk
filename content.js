@@ -744,6 +744,18 @@
           survey: []
         },
         {
+          id: 'fire-retardancy',
+          name: 'Fire retardancy and BS 5867',
+          question: 'Do our office blinds have to be fire retardant?',
+          body: [
+            'There is no blanket law that says office blinds must be fire retardant. The Regulatory Reform (Fire Safety) Order 2005 makes the person in control of the premises assess the fire risk and act on it, and the assessor will normally expect window coverings to meet BS 5867 Part 2. For most offices that means Type B, not the more demanding Type C.',
+            'If the existing blinds were bought for contract use, the fabric was very likely tested and a certificate from the supplier may be all that is needed. Replacement is only the answer where the fabric cannot be traced or was bought for a home.'
+          ],
+          href: '/fire-retardant-office-blinds-london',
+          more: 'The full guide to fire retardancy',
+          survey: []
+        },
+        {
           id: 'blackout',
           name: 'Blackout and presentation rooms',
           question: 'Can you get genuine blackout in an office?',
@@ -1598,6 +1610,150 @@
             'Where several rooms front a client-facing corridor, ordering the run together is worth more than it costs. In back-of-house rooms it usually does not show and does not matter.'
           ] },
           { q: 'Do you cover Edgware, Stanmore and Mill Hill?', short: 'Yes.', a: 'Very Well Hung is based in North-West London and covers those regularly, along with Hendon, Finchley, Barnet and Harrow. Send a photo of the partition with your postcode and Simone can tell you what she would specify before anyone visits.' },
+          { q: 'Do you cover Watford, Borehamwood and Hertfordshire?', short: 'Yes. Borehamwood, Bushey, Radlett and Watford are all part of the regular area, and the list is not exhaustive.', a: 'For larger office projects, enquiries from further afield across London and Hertfordshire are welcome.' }
+        ]
+      },
+
+      /* ---------- 4 · FIRE RETARDANCY (BS 5867) ----------
+         The compliance trigger. The reader is a facilities manager or
+         office manager who has just been asked a question by the fire
+         risk assessor, or has read that "office blinds must be fire
+         retardant" on a supplier's blog and wants to know if it is
+         true. Everything here is industry fact: the Order, the
+         standard, the types, what a certificate is. Nothing claims
+         that Very Well Hung supplies certified fabric or holds test
+         certificates, because that is on the hold list until Simone
+         confirms it. The free step is a photo of the label, which is
+         a service of looking, not a claim of supply. ---- */
+      fire: {
+        slug: '/fire-retardant-office-blinds-london',
+        navLabel: 'Fire retardancy',
+        heroKicker: 'Office blinds · Fire retardancy',
+        h1: 'Do our office blinds have to be fire retardant?',
+        heroLine: 'What the fire risk assessor is actually asking, and what BS 5867 does and does not require.',
+        heroSub: 'It usually starts with a question from the fire risk assessor, or a line in a landlord’s fit-out guide, and the first page of search results is written by people selling fabric. Here is what the law actually says, what the standard means, how to tell whether the blinds you already have are fine, and the cheapest route to being able to prove it.',
+        quickAnswers: [
+          {
+            q: 'Is it a legal requirement?',
+            short: 'Not in the blanket way the supplier blogs put it.',
+            a: 'In England and Wales the Regulatory Reform (Fire Safety) Order 2005 makes a named responsible person, usually the employer or whoever controls the premises, carry out a fire risk assessment and act on it. Curtains and blinds are contents rather than building linings, so the Order does not say "blinds must be fire retardant". What it does is make the responsible person answer for them. In practice the fire risk assessor decides what the window coverings need to be, and for most offices the answer is a fabric tested to BS 5867 Part 2.'
+          },
+          {
+            q: 'Which grade do we need?',
+            short: 'Type B, for most offices.',
+            a: 'BS 5867 Part 2 has three types. Type A is the lightest. Type B is tested after a specified cleaning cycle and is the grade most commercial specifications ask for, including offices, hotels and schools. Type C is the most demanding and is used where people sleep or cannot easily leave, such as hospitals and care settings. An office being told it needs Type C is worth a second question before anything is ordered.'
+          },
+          {
+            q: 'Do we have to replace what we have?',
+            short: 'Possibly not. A certificate may be all you need.',
+            a: 'If the existing blinds were bought for contract use, the fabric was very likely tested, and the installer or the fabric mill will have the certificate. Getting that piece of paper into the fire file is the whole job. Replacement is the right answer only when the fabric cannot be traced, is domestic grade, or has been treated with a spray that nobody can vouch for.'
+          }
+        ],
+        signsHeading: 'How to tell where you stand',
+        signsIntro: 'Five things that tell you, from the doorway and the filing cabinet, whether this is a paperwork exercise or a replacement.',
+        signs: [
+          {
+            name: 'There is a woven label on the fabric',
+            body: 'Contract fabrics often carry a label on the back of the blind, at the hem or on the barrel, stating the standard and type they were tested to. If it names BS 5867 and a type, the question is nearly answered already. Photograph it before anyone quotes for anything.'
+          },
+          {
+            name: 'Nobody can say who fitted them',
+            body: 'The most common finding. The blinds came with the lease, the previous tenant’s contractor is unknown, and there is no invoice. Without a supplier there is nobody to ask for a certificate, and the fabric has to be identified another way or treated as untested.'
+          },
+          {
+            name: 'They were bought from a domestic retailer',
+            body: 'A blind ordered online for a home is not usually tested to a contract standard, and the website it came from will say so if asked. This is the case where replacement is genuinely the only honest route, and it is also the case where the cost is lowest, because domestic blinds tend to be small.'
+          },
+          {
+            name: 'The assessor has written it down',
+            body: 'A fire risk assessment that records "no evidence of fire performance for window blinds" is not a demand to replace them. It is a finding with a date on it, and it is closed by evidence just as readily as by new blinds. Read the wording before deciding which.'
+          },
+          {
+            name: 'The building has sleeping accommodation or vulnerable occupants',
+            body: 'A hotel, a care home, student housing, a hospital, a nursery. These are the settings where the assessor may genuinely ask for Type C, and where the question stops being about the office and starts being about the building as a whole. An ordinary office floor in an ordinary building is not in this category.'
+          }
+        ],
+        causesHeading: 'Why it is so widely misunderstood',
+        causes: [
+          {
+            name: 'The duty sits with the occupier, not the product',
+            body: [
+            'The Fire Safety Order puts the responsibility on the person in control of the premises, and the government sets out what that involves in its guidance on [fire safety in the workplace](https://www.gov.uk/workplace-fire-safety-your-responsibilities). It does not list products. It requires an assessment, and the assessment decides.',
+            'That is why two offices in the same building can reasonably arrive at different answers, and why a blog post that says "all office blinds must be fire retardant" is selling a certainty the law does not provide.'
+          ]
+          },
+          {
+            name: 'The standard tests fabric, not blinds',
+            body: 'BS 5867 Part 2 is a specification for [fabrics for curtains, drapes and window blinds](https://knowledge.bsigroup.com/products/fabrics-for-curtains-drapes-and-window-blinds-flammability-requirements-specification), and its subject is the cloth. A roller mechanism is aluminium and plastic and is not what the assessor is worried about. The certificate that matters is the fabric mill’s test report for that fabric, which is why the question "who made the fabric" is more useful than "who fitted the blind".'
+          },
+          {
+            name: 'Treated and inherent are not the same thing',
+            body: 'Some fabrics are inherently flame retardant, because the fibre itself is, and stay that way for life. Others are treated with a finish that can wash or wear out, which is what the Type B cleaning cycle is designed to expose. A blind that was sprayed on site five years ago may have met the standard on the day and may not now, and there is no label that can tell you.'
+          },
+          {
+            name: 'Blinds are contents, so the building regulations do not cover them',
+            body: 'Approved Document B governs the fabric of the building, including wall and ceiling linings. Window blinds hang in front of the building rather than forming part of it, so they fall outside it and inside the Fire Safety Order instead. People who look up the building regulations and find nothing about blinds conclude there is no requirement. There is, but it lives in a different place.'
+          }
+        ],
+        optionsHeading: 'What to do about it, cheapest first',
+        optionsIntro: 'The first two are paperwork. Anyone who quotes for replacement without asking about them first is selling fabric rather than solving the problem.',
+        options: [
+          {
+            name: 'Photograph the label and send it',
+            body: 'Free. A photo of the label on the back of the blind, or of the barrel, usually settles it. If it names the standard and the type, the finding is closed with a photograph. If it names a fabric, the mill can be asked for the test report. If there is no label at all, you have learned that too, and nothing has been ordered yet.'
+          },
+          {
+            name: 'Ask the original supplier for the certificate',
+            body: 'Where the installer or landlord is known, a certificate for the fabric is a normal request and a contract supplier will have it on file. It costs an email. A certificate on file against each run of blinds is exactly what the assessor wants to see, and it is the end of the matter for every blind it covers.'
+          },
+          {
+            name: 'Treat the fabric that can be treated',
+            body: 'Where the fabric is untraceable but is a natural fibre or a blend that takes a flame-retardant finish, a specialist treatment can bring it to a stated standard and provide a certificate for the treatment. It is cheaper than replacement on large or expensive blinds. It needs redoing after cleaning, and it is not available for every fabric, so it is an option to price rather than a default.'
+          },
+          {
+            name: 'Replace the blinds the assessment actually flags',
+            body: [
+            'Only those. An assessment that flags the ground-floor reception does not require the fourth floor to be replaced. Contract roller blind fabrics are very commonly inherently flame retardant and tested to Type B as standard, so a replacement in a sensible fabric closes the finding permanently and does not need re-treating.',
+            'Guidance on specifying blinds for commercial premises is published by the [British Blind and Shutter Association](https://bbsa.org.uk/), the national trade association for the blind and shutter industry.'
+          ]
+          },
+          {
+            name: 'Replace them all, if you were going to anyway',
+            body: 'The honest version of the supplier’s answer. If the blinds are tired, mismatched or the wrong fabric for the glare or heat in the room, a compliance finding is a reasonable moment to do the job properly and get the certificate in the same order. It is the most expensive option on this list and it is not required by the finding on its own.'
+          }
+        ],
+        checksLead: 'What the label check establishes',
+        checks: [
+          'Whether the fabric carries a label naming BS 5867 and a type, and which type',
+          'Whether the fabric can be identified from the label, the barrel or the supplier, so a certificate can be requested',
+          'Whether the premises are the kind where an assessor might reasonably ask for Type C rather than Type B',
+          'Which runs the assessment actually flags, so nothing outside them is replaced',
+          'Whether the blinds have a second problem, such as glare or heat, worth solving in the same order',
+          'Whether a treatment is possible for the fabric, and whether it is cheaper than replacing it'
+        ],
+        faqs: [
+          { q: 'Do office blinds legally have to be fire retardant in the UK?', short: 'There is no blanket law that says so. There is a duty to assess, and the assessment usually requires it.', a: [
+            'The Regulatory Reform (Fire Safety) Order 2005 requires the responsible person for a workplace in England and Wales to carry out and act on a fire risk assessment. It does not list products or standards. In practice the assessor will expect window coverings in an office to meet a recognised flammability standard, and the one used for curtain and blind fabric is BS 5867 Part 2.',
+            'Scotland and Northern Ireland have their own fire safety legislation with the same shape: a duty to assess, rather than a product rule. This page is not legal advice, and the assessor’s wording for your premises is what counts.'
+          ] },
+          { q: 'What is BS 5867?', short: 'The British Standard for the flammability of curtain, drape and blind fabrics.', a: 'Part 2 of BS 5867 sets out flammability requirements for fabrics used in curtains, drapes and window blinds, and sorts them into Types A, B and C. It is a test of the fabric, so the evidence that a blind meets it is the fabric mill’s test report rather than anything about the blind’s mechanism.' },
+          { q: 'What is the difference between Type A, Type B and Type C?', short: 'Increasing severity. Type B is the usual office grade.', a: [
+            'Type A is the lightest requirement. Type B is tested after a specified cleaning procedure, so a fabric has to keep its performance through use, and it is the grade most commercial specifications ask for in offices, hotels, schools and similar premises.',
+            'Type C is the most demanding and is generally reserved for premises where people sleep or cannot easily get out, such as hospitals and care settings. An ordinary office floor being told it needs Type C is worth a polite question.'
+          ] },
+          { q: 'How do I know if my existing blinds are fire retardant?', short: 'Look for a label, then ask the supplier for the certificate.', a: [
+            'Contract fabrics often carry a woven label on the back of the blind or at the hem stating the standard and type. If there is one, photograph it. If there is not, the installer or landlord may still hold the certificate for the fabric, and that is a normal thing to ask for.',
+            'If neither route produces anything, the fabric should be treated as untested, because there is no way to tell by looking at it.'
+          ] },
+          { q: 'Can I send a photo and find out?', short: 'Yes, and it is the right first step.', a: 'A photo of the label, or of the barrel and the back of the fabric, usually tells Simone whether the fabric can be identified and what the next step is: a certificate request, a treatment quote or a replacement. It is free and nothing is ordered on the strength of it.' },
+          { q: 'Can existing blinds be treated instead of replaced?', short: 'Sometimes.', a: [
+            'Natural fibres and some blends will take a flame-retardant finish, and a specialist can apply it and certify the treatment. Many synthetic contract fabrics are inherently flame retardant already and do not need it, and some fabrics cannot be treated at all.',
+            'A treatment is usually cheaper than replacing large or expensive blinds, and it will need redoing after cleaning. It is worth pricing against replacement rather than assuming either way.'
+          ] },
+          { q: 'What does the fire risk assessor actually want to see?', short: 'A certificate on file for the fabric, against each run of blinds.', a: 'The assessor is closing a finding, and a finding is closed by evidence. A test report from the fabric mill naming the fabric, the standard and the type, filed with the fire risk assessment, is what they are asking for. New blinds with a certificate do the same thing. New blinds without one do not.' },
+          { q: 'Does this apply to a small office with a handful of windows?', short: 'The duty does. The scale of the answer is proportionate.', a: 'The Fire Safety Order applies to almost every non-domestic premises, however small. What a proportionate response looks like for four windows in a serviced office is a photo of the labels and, if needed, four replacement blinds in a tested fabric. It is not a project.' },
+          { q: 'Are fire retardant blinds more expensive?', short: 'Not noticeably, in a contract fabric.', a: 'Fabrics made for commercial blinds are commonly inherently flame retardant and tested to Type B as a matter of course, so the premium over an untested fabric of similar quality is small or nil. The cost difference people notice is between a domestic blind and a contract one, which is a difference in build rather than in fire performance.' },
+          { q: 'Do you cover Edgware, Stanmore and Mill Hill?', short: 'Yes.', a: 'Very Well Hung is based in North-West London and those are part of the area Simone covers regularly, along with Hendon, Finchley, Barnet and Harrow. Send a photo of the label with your postcode and she can tell you what the next step is before anyone visits.' },
           { q: 'Do you cover Watford, Borehamwood and Hertfordshire?', short: 'Yes. Borehamwood, Bushey, Radlett and Watford are all part of the regular area, and the list is not exhaustive.', a: 'For larger office projects, enquiries from further afield across London and Hertfordshire are welcome.' }
         ]
       }
