@@ -1454,3 +1454,5 @@ body.has-consent-banner .vwh-wa-fab {
 @media (prefers-reduced-motion: reduce) {
   .vwh-wa-fab { transition: none; }
 }
+.o-areas li a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--brass); }
+.o-areas li a:hover { color: var(--brass); }

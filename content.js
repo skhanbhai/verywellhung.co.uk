@@ -943,6 +943,11 @@
           'Finchley', 'Harrow', 'Bushey', 'Radlett', 'Watford', 'St Albans',
           'Hertford', 'Potters Bar'
         ],
+        // Areas with their own page render as links.
+        links: {
+          Watford: '/office-blinds-watford',
+          Borehamwood: '/office-blinds-borehamwood'
+        },
         widerHeading: 'Have a larger project outside these areas?',
         widerBody: 'Get in touch. Larger office and commercial blind projects can be considered further afield across London and Hertfordshire, and beyond.',
         // Kept deliberately: "including", never "only".
@@ -1756,7 +1761,245 @@
           { q: 'Do you cover Edgware, Stanmore and Mill Hill?', short: 'Yes.', a: 'Very Well Hung is based in North-West London and those are part of the area Simone covers regularly, along with Hendon, Finchley, Barnet and Harrow. Send a photo of the label with your postcode and she can tell you what the next step is before anyone visits.' },
           { q: 'Do you cover Watford, Borehamwood and Hertfordshire?', short: 'Yes. Borehamwood, Bushey, Radlett and Watford are all part of the regular area, and the list is not exhaustive.', a: 'For larger office projects, enquiries from further afield across London and Hertfordshire are welcome.' }
         ]
+      },
+
+      /* ---- Local area pages. Same template as the trigger pages, but
+         the "trigger" is a place. Substance is the kind of building and
+         window problem typical of the town; nothing here names a client
+         or claims a job done there. ---- */
+      watford: {
+        slug: '/office-blinds-watford',
+        navLabel: 'Watford',
+        heroKicker: 'Office blinds · Watford',
+        h1: 'Office blinds in Watford, specified by the person who quotes them.',
+        heroLine: 'Based in Edgware, a short drive away. Free site survey and made-to-measure blinds.',
+        heroSub: 'Watford offices range from large glazed blocks around Clarendon Road to flats-above-shops conversions in the town centre and business parks on the edge. Each has its own window problems. Simone runs Very Well Hung as an owner-led business from Edgware, so the person who surveys your windows and quotes the job is the person you deal with throughout.',
+        quickAnswers: [
+          {
+            q: 'Do you cover Watford?',
+            short: 'Yes.',
+            a: 'Watford is part of the area Simone covers regularly from her base in Edgware, a short drive away. The survey is free and carries no obligation. Send a photo of the windows with the postcode and she can say what she would suggest before anyone visits.'
+          },
+          {
+            q: 'What does it cost?',
+            short: 'From around £150 per window, supplied and fitted.',
+            a: 'That is the guide price for standard office roller blinds. Larger windows and specialist fabrics cost more. The exact price is confirmed after the free site survey and is based on the actual specification rather than a per-window estimate.'
+          },
+          {
+            q: 'What happens at the survey?',
+            short: 'She looks at every window and asks what each room is for.',
+            a: 'Simone looks at the glazing, the way the sun moves across the floor, how each room is used and what the frames and ceilings will take. You then get a recommendation before a quote. Nothing is ordered on the strength of the visit.'
+          }
+        ],
+        signsHeading: 'The offices we see in Watford',
+        signsIntro: 'Watford has a mix of office stock that is wider than most towns its size. These are the types of building worth describing. The window problem each tends to bring.',
+        signs: [
+          {
+            name: 'Glazed blocks around Clarendon Road',
+            body: 'The office district running down from the town centre towards Watford Junction is mostly blocks built from the 1970s through to the 2000s, many with large glazed elevations. Big areas of glass facing south or west bring strong solar gain and low-sun glare in the afternoon, usually on the same few elevations every summer.'
+          },
+          {
+            name: 'Refurbished floors with glass meeting rooms',
+            body: 'Older blocks are often stripped back and refitted floor by floor. A refit usually adds glass-fronted meeting rooms. Glass partitions give no privacy by themselves. The head and door details left by the fit-out decide what kind of blind can go in.'
+          },
+          {
+            name: 'Town-centre conversions and upper floors above shops',
+            body: 'Offices above retail on the high street often have older windows of mixed size and awkward reveals. Street-facing glass on the upper floors needs privacy and glare control without losing daylight. No two windows in a run can be assumed to match.'
+          },
+          {
+            name: 'Business parks on the outskirts',
+            body: 'Purpose-built units with long runs of identical glazing are the easiest to specify. The problem here is scale and consistency: a run of twenty windows has to look like one decision. One elevation often takes all of the sun.'
+          },
+          {
+            name: 'Serviced and shared offices',
+            body: 'Small suites in larger buildings often come with landlord rules on what can be fixed to the window and what the blinds must look like from outside. Those rules are worth asking about before choosing a fabric.'
+          }
+        ],
+        causesHeading: 'Which blinds suit which Watford situation',
+        causes: [
+          {
+            name: 'Large glazed elevations: solar screen rollers',
+            body: [
+              'A roller blind in a solar screen fabric cuts glare and a share of the heat while keeping the view out. It is the usual answer on large south and west glass because it can be chosen to suit the aspect rather than darkening everything.',
+              'The detail is in the guides: [screen glare](/screen-glare-office-blinds-london) covers fabric choice and [office overheating](/office-overheating-blinds-london) covers what a blind can and cannot do about heat.'
+            ]
+          },
+          {
+            name: 'Very wide runs of glass: vertical blinds',
+            body: 'Vertical blinds can suit wide windows and glazed elevations where flexible control of light and privacy matters more than a flat, minimal finish. Roller or vertical is a decision to make against the window proportions and the look wanted, not a default.'
+          },
+          {
+            name: 'Glass meeting rooms: a quick, repeatable privacy blind',
+            body: 'Meeting-room privacy is intermittent: open most of the week and closed for the meeting that matters. That points to a blind that is quick to operate rather than permanent film. The reasoning is set out in the [meeting-room privacy guide](/meeting-room-privacy-blinds-london).'
+          },
+          {
+            name: 'Rooms that need real darkness: blackout',
+            body: 'Training and presentation rooms sometimes need blackout. Genuine darkness is a fitting problem more than a fabric one. A good dim-out fitted close is often enough. The survey is where that gets decided honestly.'
+          },
+          {
+            name: 'Landlord or assessor questions about fire performance',
+            body: 'Commercial premises may be asked to show that window blinds meet a recognised flammability standard. If that has come up, the [fire retardancy guide](/fire-retardant-office-blinds-london) explains what is being asked for and the free first step.'
+          }
+        ],
+        optionsHeading: 'Where to start for a Watford office',
+        optionsIntro: 'Cheapest first. The earlier steps cost nothing and often settle the question.',
+        options: [
+          {
+            name: 'Send a photo of the windows and the postcode',
+            body: 'Free. A photo of the glazing and the postcode is usually enough for Simone to say which problem you have and roughly what she would suggest, before anyone travels.'
+          },
+          {
+            name: 'Book the free site survey',
+            body: 'Simone looks at the glazing, the aspect and how each room is used, then recommends before quoting. There is no obligation to proceed.'
+          },
+          {
+            name: 'Do only the elevation that needs it',
+            body: 'One or two elevations usually cause most of the glare and heat. Starting with those costs a fraction of doing a whole floor and shows whether the rest is needed.'
+          },
+          {
+            name: 'Do the whole floor in one consistent specification',
+            body: 'Worth it for client-facing floors and for runs seen from outside, where mixed blinds show. It is the most expensive option and not always the right first step.'
+          }
+        ],
+        checksLead: 'What the survey looks at',
+        checks: [
+          'Which elevations take the sun and at what time of day',
+          'How each room is used: screens, meetings, reception or storage',
+          'Glass size and proportions. Where mullions fall',
+          'What the head, ceiling and reveals will take for fixing',
+          'Whether the landlord or building manager has rules on what can be fitted',
+          'Whether any room needs privacy or blackout rather than just glare control'
+        ],
+        faqs: [
+          { q: 'Do you cover Watford?', short: 'Yes. Watford is part of the regular area.', a: 'Very Well Hung is based in Edgware and Simone covers Watford alongside Bushey, Radlett and Borehamwood. For larger projects, enquiries from further afield across London and Hertfordshire are also welcome.' },
+          { q: 'What do I need to organise for the survey?', short: 'Access to the windows and an idea of who to ask about parking.', a: 'Tell Simone the postcode and whether the building has a manager or reception. Town-centre and Clarendon Road buildings can have restricted parking or loading. It helps to know before the visit. If the windows are in several rooms, please make sure someone can open the doors.' },
+          { q: 'Can you work around an office that is occupied?', short: 'Occupied offices are the normal case.', a: 'Most office blind jobs happen in a working office. The practical details, such as which rooms are done on which day, are agreed when the quote is confirmed and depend on the premises. Raise anything specific at the survey.' },
+          { q: 'Is it worth doing if I only have a few windows?', short: 'Yes. You do not need a whole floor.', a: 'A small suite or one problem elevation is a perfectly reasonable job to ask about. Send a photo of the worst window with the postcode and Simone will say what she would suggest. The price is confirmed after the free survey.' },
+          { q: 'My landlord has asked about fire-retardant blinds. What should I do?', short: 'Start by checking what the existing blinds are labelled.', a: 'There is no blanket law that office blinds must be fire retardant. A fire risk assessor may expect fabric tested to a recognised standard. Photograph any label on the existing blinds and read the fire retardancy guide on this site, which explains the options in order of cost.' },
+          { q: 'Do I need landlord permission to fit blinds?', short: 'Often, if you rent.', a: 'Many leases and fit-out guides restrict what can be fixed to the windows or what the blinds look like from outside. Check with the landlord or building manager first. It is worth knowing before a fabric is chosen.' }
+        ]
+      },
+
+      // TODO: replace with a real Watford job + photos from Simone
+      // (area, blind type, type/scale of premises). Render it only once
+      // it exists; no placeholder text on the page.
+
+      borehamwood: {
+        slug: '/office-blinds-borehamwood',
+        navLabel: 'Borehamwood',
+        heroKicker: 'Office blinds · Borehamwood',
+        h1: 'Office blinds in Borehamwood, specified by the person who quotes them.',
+        heroLine: 'Based in Edgware, a few miles down the road. Free site survey and made-to-measure blinds.',
+        heroSub: 'Borehamwood has a working business community around Elstree Way and its business parks, plus the film and television production offices the town is known for. Edit suites need glare control and darkness. Older units sit next to newer ones. Simone runs Very Well Hung as an owner-led business from Edgware, so you deal with the person who surveys and quotes.',
+        quickAnswers: [
+          {
+            q: 'Do you cover Borehamwood?',
+            short: 'Yes.',
+            a: 'Borehamwood is close to Simone’s base in Edgware and is part of the area she covers regularly. The survey is free and carries no obligation. Send a photo of the windows with the postcode and she can say what she would suggest before anyone visits.'
+          },
+          {
+            q: 'What does it cost?',
+            short: 'From around £150 per window, supplied and fitted.',
+            a: 'That is the guide price for standard office roller blinds. Larger windows and specialist fabrics cost more. The exact price is confirmed after the free site survey and is based on the actual specification rather than a per-window estimate.'
+          },
+          {
+            q: 'What happens at the survey?',
+            short: 'She looks at every window and asks what each room is for.',
+            a: 'Simone looks at the glazing, the sun on each elevation, how each room is used and what the frames and ceilings will take. You then get a recommendation before a quote. Nothing is ordered on the strength of the visit.'
+          }
+        ],
+        signsHeading: 'The offices we see in Borehamwood',
+        signsIntro: 'Borehamwood is a smaller town with a distinctive mix: ordinary business space alongside offices that serve the film and television industry. These are the kinds of premises worth describing and the window problems they tend to bring.',
+        signs: [
+          {
+            name: 'Offices around Elstree Way and the business parks',
+            body: 'Purpose-built office blocks and business parks give runs of similar windows, often with one elevation facing the sun for most of the day. The job is usually consistent glare and heat control across a full run.'
+          },
+          {
+            name: 'Production and post-production offices',
+            body: 'Borehamwood is closely associated with film and television, with sites such as Elstree Studios and the BBC Elstree Centre in the area. Offices that serve that industry often include edit suites and viewing rooms where screens need glare control and some rooms need real darkness. This describes the type of premises in the town, not work done for any named company.'
+          },
+          {
+            name: 'Small serviced offices',
+            body: 'Small suites and shared workspaces tend to have a handful of windows and a landlord with views on what can be fitted. A few well-chosen blinds often solve the whole problem.'
+          },
+          {
+            name: 'Light-industrial units with offices',
+            body: 'Units with a warehouse or workshop and a small office block at the front often have large front glazing and a mix of older and newer window styles. Reception and front offices need to look right from outside.'
+          },
+          {
+            name: 'Mixed old and new windows',
+            body: 'Where a building has been extended or part-refurbished, windows of different ages and sizes sit side by side. Frames, reveal depths and fixings can all differ, so each window is worth surveying rather than assumed from its neighbour.'
+          }
+        ],
+        causesHeading: 'Which blinds suit which Borehamwood situation',
+        causes: [
+          {
+            name: 'Edit suites and screen rooms: blackout or dim-out',
+            body: 'Screens and projected images lose contrast when light leaks round the edges. Genuine darkness is a fitting problem more than a fabric one, involving side channels or a deep recess fit and a closed head. A good dim-out is sometimes enough. The survey is where that gets decided honestly.'
+          },
+          {
+            name: 'Offices with screens in daylight: solar screen rollers',
+            body: [
+              'For ordinary desks facing sun, a roller in a solar screen fabric cuts glare while keeping the view and daylight. The [screen glare guide](/screen-glare-office-blinds-london) covers how the fabric is chosen.',
+              'Where heat is the bigger complaint, the [office overheating guide](/office-overheating-blinds-london) sets out what a blind can and cannot do.'
+            ]
+          },
+          {
+            name: 'Wide front glazing in units: vertical blinds',
+            body: 'Wide windows and glazed fronts can suit vertical blinds where flexible control of light and privacy matters more than a flat finish. The window proportions and the look wanted should decide, not habit.'
+          },
+          {
+            name: 'Meeting and review rooms: privacy',
+            body: 'Glass-fronted meeting rooms need to be open most of the time and closed for the meeting that matters. The [meeting-room privacy guide](/meeting-room-privacy-blinds-london) explains why quick, repeatable blinds usually beat applied film.'
+          },
+          {
+            name: 'Landlord or assessor questions about fire performance',
+            body: 'If a fire risk assessor or landlord has asked about window blinds, the [fire retardancy guide](/fire-retardant-office-blinds-london) explains what is being asked for and the free first step.'
+          }
+        ],
+        optionsHeading: 'Where to start for a Borehamwood office',
+        optionsIntro: 'Cheapest first. The earlier steps cost nothing and often settle the question.',
+        options: [
+          {
+            name: 'Send a photo of the windows and the postcode',
+            body: 'Free. A photo of the glazing and the postcode is usually enough for Simone to say which problem you have and roughly what she would suggest, before anyone travels.'
+          },
+          {
+            name: 'Book the free site survey',
+            body: 'Simone looks at the glazing, the aspect and how each room is used, then recommends before quoting. There is no obligation to proceed.'
+          },
+          {
+            name: 'Treat the screen and edit rooms first',
+            body: 'Rooms where screens or projection matter are usually where the right blind pays back quickest. The rest of the building can follow.'
+          },
+          {
+            name: 'Match the whole run in one specification',
+            body: 'Worth it on front elevations and anywhere mixed blinds would show from outside. It is the most expensive option and not always the right first step.'
+          }
+        ],
+        checksLead: 'What the survey looks at',
+        checks: [
+          'Which rooms have screens or projection and how dark they need to be',
+          'Which elevations take the sun and at what time of day',
+          'How old and new windows differ in frame, reveal depth and fixing',
+          'What the head, ceiling and reveals will take for fixing',
+          'Whether the landlord or building manager has rules on what can be fitted',
+          'Which windows are visible from outside and need to match'
+        ],
+        faqs: [
+          { q: 'Do you cover Borehamwood?', short: 'Yes. Borehamwood is part of the regular area.', a: 'Very Well Hung is based in Edgware and Simone covers Borehamwood alongside Bushey, Radlett and Watford. For larger projects, enquiries from further afield across London and Hertfordshire are also welcome.' },
+          { q: 'What do I need to organise for the survey?', short: 'Access to the windows and details of parking.', a: 'Tell Simone the postcode and whether the unit has reception or a building manager. Business parks may have parking rules for visitors. It helps to know before the visit. If the windows are in several rooms, please make sure someone can open the doors.' },
+          { q: 'Can you work around an office that is occupied?', short: 'Occupied offices are the normal case.', a: 'Most office blind jobs happen in a working office. The practical details, such as which rooms are done on which day, are agreed when the quote is confirmed and depend on the premises. Raise anything specific at the survey.' },
+          { q: 'Can you make an edit suite properly dark?', short: 'It depends on the room. The survey decides.', a: 'Blackout fabric blocks light through its face. The leaks are at the edges: down the sides, over the head and under the bottom bar. Getting a room dark means dealing with those. Each adds cost. Simone will tell you whether the room needs full blackout or whether a good dim-out is enough.' },
+          { q: 'Is it worth doing if I only have a few windows?', short: 'Yes. You do not need a whole building.', a: 'A small suite or one problem room is a reasonable job to ask about. Send a photo of the worst window with the postcode and Simone will say what she would suggest. The price is confirmed after the free survey.' },
+          { q: 'My landlord has asked about fire-retardant blinds. What should I do?', short: 'Start by checking what the existing blinds are labelled.', a: 'There is no blanket law that office blinds must be fire retardant. A fire risk assessor may expect fabric tested to a recognised standard. Photograph any label on the existing blinds and read the fire retardancy guide on this site, which explains the options in order of cost.' }
+        ]
       }
+
+      // TODO: replace with a real Borehamwood job + photos from Simone
+      // (area, blind type, type/scale of premises). Render it only once
+      // it exists; no placeholder text on the page.
     },
 
     /* ---- Footer legal (demo) ---- */

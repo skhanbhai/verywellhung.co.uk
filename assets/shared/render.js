@@ -255,9 +255,15 @@
   }
 
   // Named areas, rendered as chips. Only real place names go in here.
-  function officeAreas(list) {
+  // Areas that have their own page (office.areas.links) render as links.
+  function officeAreas(list, VWH) {
+    var links = get(VWH, 'office.areas.links') || {};
     return (list || []).filter(Boolean)
-      .map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('');
+      .map(function (a) {
+        return '<li>' + (links[a]
+          ? '<a href="' + esc(links[a]) + '">' + esc(a) + '</a>'
+          : esc(a)) + '</li>';
+      }).join('');
   }
 
   // Plain {name, body} cards. The workhorse of the trigger-event
