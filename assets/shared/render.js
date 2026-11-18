@@ -55,9 +55,12 @@
      so the only anchors that appear are the ones an author
      deliberately wrote. Used for the outbound authority links
      (HSE, BSI, BBSA) on the office page. */
-  var LINK = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  var LINK = /\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g;
   function links(escaped) {
-    return escaped.replace(LINK, '<a href="$2" rel="noopener">$1</a>');
+    // Site-relative links (/page) are internal, so no rel="noopener".
+    return escaped.replace(LINK, function (m, label, href) {
+      return '<a href="' + href + '"' + (href.charAt(0) === '/' ? '' : ' rel="noopener"') + '>' + label + '</a>';
+    });
   }
   function text(v) { return links(esc(v)); }
 
@@ -138,6 +141,10 @@
         var input;
         if (f.type === 'textarea') {
           input = '<textarea id="' + id + '" name="' + esc(f.id) + '" placeholder="' + esc(f.placeholder || '') + '"></textarea>';
+        } else if (f.type === 'select') {
+          input = '<select id="' + id + '" name="' + esc(f.id) + '"><option value="">Choose one</option>' +
+            (f.options || []).map(function (o) { return '<option value="' + esc(o) + '">' + esc(o) + '</option>'; }).join('') +
+            '</select>';
         } else if (f.type === 'file') {
           input = '<input id="' + id + '" name="' + esc(f.id) + '" type="file" accept="image/*" multiple>' +
             (f.note ? '<span class="v-field__note">' + esc(f.note) + '</span>' : '');

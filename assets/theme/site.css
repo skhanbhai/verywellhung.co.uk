@@ -377,11 +377,11 @@ img, video { max-width: 100%; height: auto; display: block; }
    forms a single quiet column down the form, so the skippable
    fields can be counted at a glance instead of read one by one. */
 .v-field__opt { flex: none; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.02em; color: var(--muted); }
-.v-field input, .v-field textarea {
+.v-field input, .v-field textarea, .v-field select {
   width: 100%; font-family: var(--font-body); font-size: 0.97rem; color: var(--ink);
   background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
 }
-.v-field input:focus, .v-field textarea:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: var(--green); }
+.v-field input:focus, .v-field textarea:focus, .v-field select:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: var(--green); }
 .v-field textarea { min-height: 110px; resize: vertical; }
 .v-field__note { font-size: 0.78rem; color: var(--muted); }
 .v-field input[type="file"] { padding: 10px; background: var(--paper); }
@@ -1456,3 +1456,12 @@ body.has-consent-banner .vwh-wa-fab {
 }
 .o-areas li a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--brass); }
 .o-areas li a:hover { color: var(--brass); }
+
+/* Sector block on the office hub: a short pointer to the two pages
+   for settings with rules of their own. */
+.o-sectors { margin-top: clamp(32px, 5vw, 56px); padding: 24px 26px; border: 1px solid var(--line); border-left: 3px solid var(--brass); border-radius: 10px; background: var(--paper); }
+.o-sectors h3 { margin: 0 0 8px; }
+.o-sectors p { margin: 0 0 12px; }
+.o-sectors__links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; }
+.o-sectors__links a { color: inherit; border-bottom: 1px solid var(--brass); text-decoration: none; }
+.o-sectors__links a:hover { color: var(--brass); }

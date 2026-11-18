@@ -319,7 +319,7 @@
 
     /* ---- Quote / enquiry form (homeowner — A & B) ---- */
     form: {
-      intro: 'Tell us a little about your windows and what you have in mind, and we’ll arrange a home visit to talk it through. No obligation, just honest advice.',
+      intro: 'Tell us a little about the windows and what you have in mind. Simone will suggest the best next step. No obligation, just honest advice.',
       privacy: 'No spam and no mailing lists. Your details are only used to reply to your enquiry.',
       // The old wording here carried an internal note about the phone
       // and email still needing confirmation. It was never visible while
@@ -332,6 +332,7 @@
         { id: 'name', label: 'Your name', type: 'text', autocomplete: 'name', placeholder: 'Jane Smith' },
         { id: 'contact', label: 'Phone or email', type: 'text', autocomplete: 'tel', placeholder: 'So we can get back to you' },
         { id: 'postcode', label: 'Area or postcode', type: 'text', autocomplete: 'postal-code', placeholder: 'So we know it’s in our area' },
+        { id: 'premises', label: 'Type of premises', type: 'select', optional: true, options: ['Home', 'Office', 'School or nursery', 'Care home or surgery', 'Other business'] },
         { id: 'rooms', label: 'Rooms / windows', type: 'text', optional: true, placeholder: 'e.g. bay window in the lounge + two bedrooms' },
         { id: 'idea', label: 'What you have in mind', type: 'textarea', optional: true, placeholder: 'A rough idea is fine: curtains, blinds, fabrics you like…' },
         { id: 'besttime', label: 'Best time for a visit', type: 'text', optional: true, placeholder: 'e.g. weekday evenings, weekends' },
@@ -1750,7 +1751,7 @@
             'Contract fabrics often carry a woven label on the back of the blind or at the hem stating the standard and type. If there is one, photograph it. If there is not, the installer or landlord may still hold the certificate for the fabric, and that is a normal thing to ask for.',
             'If neither route produces anything, the fabric should be treated as untested, because there is no way to tell by looking at it.'
           ] },
-          { q: 'Can I send a photo and find out?', short: 'Yes, and it is the right first step.', a: 'A photo of the label, or of the barrel and the back of the fabric, usually tells Simone whether the fabric can be identified and what the next step is: a certificate request, a treatment quote or a replacement. It is free and nothing is ordered on the strength of it.' },
+          { q: 'Can I send a photo and find out?', short: 'Yes. It is the right first step.', a: 'A photo of the label, or of the barrel and the back of the fabric, usually tells Simone whether the fabric can be identified and what the next step is: a certificate request, a treatment quote or a replacement. It is free and nothing is ordered on the strength of it.' },
           { q: 'Can existing blinds be treated instead of replaced?', short: 'Sometimes.', a: [
             'Natural fibres and some blends will take a flame-retardant finish, and a specialist can apply it and certify the treatment. Many synthetic contract fabrics are inherently flame retardant already and do not need it, and some fabrics cannot be treated at all.',
             'A treatment is usually cheaper than replacing large or expensive blinds, and it will need redoing after cleaning. It is worth pricing against replacement rather than assuming either way.'
@@ -1760,6 +1761,249 @@
           { q: 'Are fire retardant blinds more expensive?', short: 'Not noticeably, in a contract fabric.', a: 'Fabrics made for commercial blinds are commonly inherently flame retardant and tested to Type B as a matter of course, so the premium over an untested fabric of similar quality is small or nil. The cost difference people notice is between a domestic blind and a contract one, which is a difference in build rather than in fire performance.' },
           { q: 'Do you cover Edgware, Stanmore and Mill Hill?', short: 'Yes.', a: 'Very Well Hung is based in North-West London and those are part of the area Simone covers regularly, along with Hendon, Finchley, Barnet and Harrow. Send a photo of the label with your postcode and she can tell you what the next step is before anyone visits.' },
           { q: 'Do you cover Watford, Borehamwood and Hertfordshire?', short: 'Yes. Borehamwood, Bushey, Radlett and Watford are all part of the regular area, and the list is not exhaustive.', a: 'For larger office projects, enquiries from further afield across London and Hertfordshire are welcome.' }
+        ]
+      },
+
+      /* ---------- 5b · BLIND CORD SAFETY (nurseries and schools) ----------
+         Rules come from published sources only: the BBSA leaflet, trading
+         standards, RoSPA, the EYFS framework and DfE school guidance. No
+         capability, accreditation or setting experience is claimed for
+         Very Well Hung. The offer is a free check by photo. */
+      cordSafety: {
+        slug: '/blind-cord-safety-schools-nurseries',
+        navLabel: 'Cord safety',
+        heroKicker: 'Nurseries and schools · Blind cord safety',
+        h1: 'Are the blind cords in our nursery or school safe?',
+        heroLine: 'What the rules say about blind cords in childcare settings and what to do about the ones you already have.',
+        heroSub: 'A parent asks. An inspector looks round the room. A new member of staff notices a loop of cord hanging beside a cot. The standard for blinds changed in 2014 and the guidance on older blinds is easy to misread. Here is what the rules cover, what they leave to your risk assessment, how to spot a problem from the doorway and the cheapest ways to put it right.',
+        photoNote: 'Free check by photo, no obligation. Simone will say whether the blind looks like it meets the current standard and what would make it safe.',
+        quickAnswers: [
+          {
+            q: 'Is there a law about blind cords?',
+            short: 'There is a safety standard for supplying and fitting blinds. It is not a rule about the blinds you already have.',
+            a: 'On 28 February 2014 BSI published BS EN 13120 for internal blinds along with two companion standards on test methods and safety devices. The British Blind and Shutter Association says in its [Make it Safe leaflet](https://www.publichealth.hscni.net/sites/default/files/The%20British%20Blind%20and%20Shutter%20Association%20-%20%27Make%20it%20safe%27%20brochure%20in%20English_0.pdf) that it is now illegal to supply or professionally install an internal blind that does not comply. Trading standards [guidance on window blinds](https://causewaycoastandglens.gov.uk/live/health-and-built-environment/commercial/consumer-protection/window-blinds) puts that duty on anyone who makes, imports, distributes, sells, supplies or fits blinds under general product safety law.'
+          },
+          {
+            q: 'Do we have to replace older blinds?',
+            short: 'Not under any blind-specific rule. The risk still has to be dealt with.',
+            a: 'The rules cover supplying and fitting blinds. There is no blind-specific legal duty to replace older blinds that are already in place. [RoSPA](https://www.rospa.com/home-safety/product-safety/blind-cords) advises that looped blinds made before 2014 should be replaced where possible and replaced if safety devices cannot make them safe. It describes this as a duty of care for anyone responsible for others, a landlord for example. A setting looking after children would be sensible to read it the same way.'
+          },
+          {
+            q: 'What will an inspector expect?',
+            short: 'The hazards in the room covered by your risk assessment, cords included.',
+            a: 'The [EYFS statutory framework](https://assets.publishing.service.gov.uk/media/6a5f8e4fb00f3323bf1a23a1/EYFS_group_and_school_based_from_September_2026.pdf) for group and school-based providers does not mention blinds or cords. It does require providers to "take all reasonable steps to ensure staff and children in their care are not exposed to risks and must be able to demonstrate how they are managing risks". An inspector reading your risk assessment will reasonably expect the hazards in each room to be covered. Cords are one of them.'
+          }
+        ],
+        signsHeading: 'What to look for in the room',
+        signsIntro: 'Five things you can check from the doorway with a phone in your hand. Any one of them is worth a photo.',
+        signs: [
+          {
+            name: 'Long looped cords or chains',
+            body: 'A cord or chain that hangs in a loop is the hazard the standard is aimed at. The longer the loop the bigger the problem. Cords that pool on a sill or the floor are the worst case.'
+          },
+          {
+            name: 'A chain with no tensioner',
+            body: 'A chain tensioner is a small fitting fixed to the wall or window frame that keeps the loop pulled taut. If the chain swings free there is either no tensioner or it has come loose. It is a small part to add.'
+          },
+          {
+            name: 'Cords not on a cleat or on a cleat that is too low',
+            body: 'RoSPA advises tying cords up out of reach with a cleat at least 1.5 metres from the floor. A cleat at the height of a toddler’s hand does not do the job. Neither do cords left hanging beside it.'
+          },
+          {
+            name: 'Cots, beds or climbable furniture near the window',
+            body: 'RoSPA advises keeping cots, beds, high chairs and any furniture children can climb away from windows. In a nursery this is often a layout question rather than a blind question. It is usually the quickest thing to change.'
+          },
+          {
+            name: 'Blinds that predate 2014 or have no label or instructions',
+            body: 'A blind from before the 2014 standard may have no safety device at all. Newer blinds should carry warnings and instructions, so one with neither deserves a closer look. The age is often easier to find from the paperwork or a photo of the headrail than from memory.'
+          }
+        ],
+        causesHeading: 'Why it is so often misunderstood',
+        causes: [
+          {
+            name: 'The standard is about supplying and fitting',
+            body: [
+              'The changes in 2014 cover blinds being supplied and fitted. The [British Blind and Shutter Association](https://www.publichealth.hscni.net/sites/default/files/The%20British%20Blind%20and%20Shutter%20Association%20-%20%27Make%20it%20safe%27%20brochure%20in%20English_0.pdf) says a professional installer must fit the safety devices. Blinds that are safe by design meet the standard: cordless blinds, blinds with concealed cords and blinds with tensioned cords or chains.',
+              'No blind-specific rule orders older blinds out of a building. That is why "it is not illegal" and "it is not safe" can both be true of the same blind.'
+            ]
+          },
+          {
+            name: 'Existing blinds are a risk assessment matter',
+            body: 'What you already have is dealt with under the general duty to manage risk in the premises. The EYFS framework requires risk assessments to identify what is checked, when and by whom. Someone has to look at the cords, decide whether they are safe and write down what was done. The writing down is the part that is easy to skip.'
+          },
+          {
+            name: 'In a school the duty sits with the employer',
+            body: 'Department for Education guidance on [health and safety responsibilities and duties for schools](https://www.gov.uk/government/publications/health-and-safety-advice-for-schools/responsibilities-and-duties-for-schools) says the employer is accountable, with the proprietor in that role at an independent school. Day-to-day tasks are delegated to the headteacher and staff. Who the employer is depends on the type of school: the local authority, an academy trust, a governing body or a proprietor. The guidance does not mention blinds. Cords sit under it like any other hazard in the building.'
+          },
+          {
+            name: 'Children are not the only people at risk',
+            body: 'A Department of Health alert from 8 July 2010, [Window blinds with looped cords or chains](https://www.gov.uk/government/publications/window-blinds-with-looped-cords-or-chains), says looped cords and chains can present a strangulation hazard to children and vulnerable adults. It asked for risk assessments on looped blind cords, primarily in healthcare environments where both groups are commonly present. Our guide to [blinds in care homes and surgeries](/blinds-care-homes-surgeries) covers that setting.'
+          }
+        ],
+        optionsHeading: 'What to do about it, cheapest first',
+        optionsIntro: 'The first three can often be done without replacing anything. Replacement is the right answer for a blind that cannot be made safe.',
+        options: [
+          {
+            name: 'Tie the cords up out of reach',
+            body: 'Free or nearly free. RoSPA advises tying cords up out of reach with a cleat at least 1.5 metres from the floor. It only works if the cord is wound up every time the blind is used, so it suits blinds that are rarely moved better than ones used all day.'
+          },
+          {
+            name: 'Fit tensioners or safety devices',
+            body: 'A tensioner fixed to the wall or frame keeps a looped cord or chain taut so it cannot form a hazardous loop. Some blinds can be fitted with a safety device after the event and some cannot. It depends on the make and the age, which is what the photo check is for. A blind that cannot be made safe this way goes to the last option.'
+          },
+          {
+            name: 'Move cots, beds and climbable furniture',
+            body: 'It costs nothing and it changes the risk straight away. It does not remove the cord, so it sits alongside the other options rather than replacing them.'
+          },
+          {
+            name: 'Replace with blinds that are safe by design',
+            body: 'Cordless blinds, spring-operated blinds, motorised blinds and blinds with concealed or tensioned cords or chains are safe by design. Integral blinds sealed between the glass have no cords at all. This is the answer where an older blind cannot be made safe or where the blinds are due for replacement anyway.'
+          }
+        ],
+        checksLead: 'What the photo check establishes',
+        checks: [
+          'Whether the blind looks like it meets the current standard',
+          'Whether there is a loop of cord or chain and roughly how long it is',
+          'Whether a tensioner or safety device is fitted or could be added',
+          'Where the cords sit in relation to cots, beds and furniture children can climb',
+          'Whether the blind carries warnings and instructions and roughly how old it is',
+          'Which blinds can be made safe and which are better replaced'
+        ],
+        faqs: [
+          { q: 'Is it illegal to have looped blind cords in a nursery or school?', short: 'No blind-specific rule bans blinds you already have. The risk still has to be managed.', a: [
+            'The 2014 standards cover supplying and fitting. The British Blind and Shutter Association says it is illegal to supply or professionally install an internal blind that does not comply. There is no blind-specific legal duty to replace older blinds that are already in place.',
+            'That does not make an old looped cord acceptable. Settings have to manage the risks in their premises and RoSPA advises replacing looped blinds made before 2014 where possible. This page is not legal advice.'
+          ] },
+          { q: 'What changed in 2014?', short: 'The standard for internal blinds was rewritten around child safety.', a: [
+            'BSI published BS EN 13120:2009+A1:2014 on the performance and safety of internal blinds on 28 February 2014. It came with BS EN 16433:2014 on test methods for strangulation protection and BS EN 16434:2014 on requirements and tests for safety devices.',
+            'The Make it Safe leaflet from the British Blind and Shutter Association lists what changed: blinds must be child safe in all homes whether or not children live there; cord and chain lengths are limited; safety devices must stop a hazardous loop forming; safety devices are fitted at the point of manufacture; safety-critical parts are tested; and warnings and instructions are required.'
+          ] },
+          { q: 'How serious is the risk?', short: 'It kills quickly, which is why it is worth checking.', a: 'RoSPA says it is aware of at least 33 deaths in the UK from blind cords over the preceding 20 years. The National Child Mortality Database recorded nine children dying from blind cord strangulation between April 2019 and March 2022. RoSPA says a toddler can lose consciousness and die within two to three minutes.' },
+          { q: 'Will an inspector ask about blind cords?', short: 'They are not named in the framework. Hazards in the room are expected to be covered.', a: [
+            'The EYFS statutory framework for group and school-based providers, effective 1 September 2026, does not mention blinds or cords. It requires premises to be fit for purpose and suitable for the age of the children. It also requires providers to "take all reasonable steps to ensure staff and children in their care are not exposed to risks and must be able to demonstrate how they are managing risks".',
+            'An inspector looking at the risk assessment will reasonably expect the hazards in the room to be covered. Having the cords checked and the check written down answers the question before it is asked.'
+          ] },
+          { q: 'Who is responsible for this in a school?', short: 'The employer, with day-to-day tasks delegated to the headteacher and staff.', a: 'Department for Education guidance says the employer is accountable for health and safety. At an independent school that is the proprietor. Who the employer is depends on the type of school: the local authority, an academy trust, a governing body or a proprietor. The guidance does not mention blinds specifically, so cords are covered as a hazard in the building like any other.' },
+          { q: 'Can I send a photo and find out?', short: 'Yes. It is the right first step.', a: 'A photo of the cords, any cleat or tensioner and the headrail of the blind, with your postcode, is enough for Simone to say whether the blind looks like it meets the current standard and what would make it safe. It is free and nothing is ordered on the strength of it.' },
+          { q: 'Do you cover North-West London and Hertfordshire?', short: 'Yes.', a: 'Very Well Hung is based in North-West London and works across London and Hertfordshire. The list of areas is not exhaustive. Send photos with your postcode and Simone can tell you what the next step is before anyone visits.' }
+        ]
+      },
+
+      /* ---------- 5c · BLINDS FOR CARE HOMES AND SURGERIES ---------- */
+      care: {
+        slug: '/blinds-care-homes-surgeries',
+        navLabel: 'Care homes and surgeries',
+        heroKicker: 'Care homes and surgeries · Blinds',
+        h1: 'Blinds for care homes and GP surgeries: what to check',
+        heroLine: 'Cords, fire performance, cleaning and privacy: the four things worth checking before anything is ordered.',
+        heroSub: 'Blinds in a care home or surgery have more to do than blinds in an office. They hang in rooms where vulnerable people spend time. They are looked at by fire risk assessors and infection control leads. They have to give privacy without making a treatment room feel shut in. Here is what the guidance says on each and how to check what you already have.',
+        photoNote: 'Free check by photo, no obligation. Simone will tell you what she would look at first and what would make the blinds safer.',
+        quickAnswers: [
+          {
+            q: 'Are looped cords a risk in care settings?',
+            short: 'Yes. The Department of Health said so in 2010.',
+            a: 'A Department of Health alert of 8 July 2010, [Window blinds with looped cords or chains](https://www.gov.uk/government/publications/window-blinds-with-looped-cords-or-chains), says looped cords and chains can present a strangulation hazard to children and vulnerable adults. It said risk assessments should be carried out on looped blind cords, primarily in healthcare environments where children and vulnerable adults are commonly present. It also said chains at the bottom of vertical blinds should be considered. Children visiting a care home or attending a surgery fall under the same warning.'
+          },
+          {
+            q: 'Do blinds in a care home have to be fire retardant?',
+            short: 'They should meet a recognised fire performance standard. The risk assessment decides which.',
+            a: 'The government guide [Fire safety risk assessment: residential care premises](https://www.gov.uk/government/publications/fire-safety-risk-assessment-residential-care-premises) says soft furnishings and textiles that ignite easily or spread flame quickly should be avoided where practicable in any type of care home. It says all should meet a recognised fire performance standard. It lists BS 5867-2 for fabrics for curtains and drapes, including roller blinds. It also refers to Type B. Our guide to [fire retardancy](/fire-retardant-office-blinds-london) explains what the types mean.'
+          },
+          {
+            q: 'What about cleaning and infection control?',
+            short: 'Blinds belong on the cleaning schedule like everything else in the room.',
+            a: 'NHS England’s [National standards of healthcare cleanliness 2025](https://www.england.nhs.uk/long-read/national-standards-of-healthcare-cleanliness-2025) set cleaning by functional risk category. A trust quick reference adapted from them says blinds, curtains and screens should be visibly clean and on the cleaning schedule with records kept. They should be cleaned or changed straight away if visibly soiled. Fabric ones should be laundered professionally.'
+          }
+        ],
+        signsHeading: 'What to check in each room',
+        signsIntro: 'Five things you can see on a walk round the building. Photograph anything that gives you pause.',
+        signs: [
+          {
+            name: 'Looped cords or chains in rooms people use',
+            body: 'The Department of Health alert is about exactly this. Look at waiting areas, lounges and bedrooms as well as treatment rooms. Anywhere a child visiting or a vulnerable adult could reach a loop counts.'
+          },
+          {
+            name: 'Vertical blinds with a chain at the bottom',
+            body: 'The alert says chains at the bottom of vertical blinds should be considered as well. They are easy to overlook because they hang near the floor rather than at the side of the window.'
+          },
+          {
+            name: 'No label, invoice or certificate for the fabric',
+            body: 'A fire risk assessor will want to know what the fabric is. A blind with no label and no paperwork is hard to account for. Photograph any label on the back of the blind or at the hem before anyone quotes for anything.'
+          },
+          {
+            name: 'Fabric that cannot be wiped down or laundered',
+            body: 'Blinds that collect dust or take a stain and cannot be cleaned are a problem on a cleaning schedule. Treated fabrics also depend on correct laundering to keep their fire performance, so how a blind is cleaned matters twice.'
+          },
+          {
+            name: 'Consulting or treatment rooms where people can see in',
+            body: 'A room that overlooks a street or a corridor needs a blind that closes fully when it has to. Dim-out and blackout fabrics and frosted or obscure options all exist. The right one depends on how much light the room needs.'
+          }
+        ],
+        causesHeading: 'Why it gets overlooked',
+        causes: [
+          {
+            name: 'Each concern has a different owner',
+            body: 'Cords tend to land with whoever leads on health and safety. Fire performance goes to the fire risk assessor. Cleaning goes to infection control and privacy to the manager of the room. A blind touches all four and can end up on nobody’s list.'
+          },
+          {
+            name: 'The guidance is in separate documents',
+            body: 'The cord warning is one alert. The fire guidance is a separate guide for residential care premises. The cleaning guidance sits in the national cleanliness standards and in the trust documents adapted from them. No single page tells you what to check on a blind.'
+          },
+          {
+            name: 'Fire performance is a matter for the risk assessment',
+            body: 'The care premises guide refers to Type B and says all soft furnishings should meet a recognised standard. It does not tell you what your building needs. The risk assessment does that. It also notes that flame-retardant treated textiles depend on correct laundering, so a fabric that was compliant when it was fitted may not be now.'
+          },
+          {
+            name: 'Privacy and cleaning pull in different directions',
+            body: 'Heavy fabrics give privacy but are harder to keep clean. Wipe-clean fabrics are easier to look after in a clinical room. Dim-out fabrics reduce light and view and frosted or obscure options keep the view out while letting light in, so the answer often differs from room to room.'
+          }
+        ],
+        optionsHeading: 'What to do about it, cheapest first',
+        optionsIntro: 'Looking is free. Replacement is for blinds that cannot be made safe or clean or accounted for.',
+        options: [
+          {
+            name: 'Walk the building and photograph every blind',
+            body: 'Free. One pass catches the cords, the chains, the labels and the fabric. A photo of each blind with its label, headrail and cord arrangement is what it takes to say anything useful about it.'
+          },
+          {
+            name: 'Deal with the cords first',
+            body: 'Chain tensioners fixed to the wall or frame keep a loop taut. Cleats keep cords out of reach and RoSPA advises one at least 1.5 metres from the floor. Some blinds have breakaway connectors. Where a blind cannot be made safe, a cordless or tensioned replacement is the answer.'
+          },
+          {
+            name: 'Put the fabric evidence on file',
+            body: 'A label, an invoice or the fabric supplier’s test report goes in with the fire risk assessment. Our guide to [fire retardancy](/fire-retardant-office-blinds-london) explains the types and what an assessor is asking for.'
+          },
+          {
+            name: 'Choose fabric that can be kept clean',
+            body: 'Wipe-clean fabrics are easier to keep clean in clinical rooms and so are cordless or tensioned blinds with nothing to collect dust at floor level. Where fabric blinds are used they need a cleaning route that fits the schedule.'
+          },
+          {
+            name: 'Replace what cannot be made safe, clean or accounted for',
+            body: 'In a building that is in use, fitting has to be planned around residents and clinics. It is reasonable to ask any fitter how access and timing would work and to agree it before work is scheduled.'
+          }
+        ],
+        checksLead: 'What the photo check establishes',
+        checks: [
+          'Whether any cords or chains form a loop and whether they can be made safe',
+          'Whether the fabric has a label and whether it can be identified for a certificate request',
+          'Whether the fabric can be wiped down or laundered',
+          'Whether the room needs privacy and which option would give it',
+          'Whether the blind is worth keeping or better replaced',
+          'What access the building would need for fitting'
+        ],
+        faqs: [
+          { q: 'Are looped blind cords a risk in a care home or surgery?', short: 'Yes. The Department of Health has said so.', a: [
+            'A Department of Health alert of 8 July 2010 says looped cords and chains can present a strangulation hazard to children and vulnerable adults. It said risk assessments should be carried out on looped blind cords, primarily in healthcare environments where children and vulnerable adults are commonly present.',
+            'It also said chains at the bottom of vertical blinds should be considered. Safe-by-design blinds, meaning cordless blinds or blinds with concealed or tensioned cords, remove the hazard. Our guide to [blind cord safety](/blind-cord-safety-schools-nurseries) covers the options in more detail.'
+          ] },
+          { q: 'What fire standard should care home blinds meet?', short: 'A recognised fire performance standard. The risk assessment sets which.', a: [
+            'The government guide to fire safety risk assessment in residential care premises says soft furnishings and textiles that ignite easily or spread flame quickly should be avoided where practicable in any type of care home. It says all should meet a recognised fire performance standard and lists BS 5867-2 for fabrics for curtains and drapes, including roller blinds.',
+            'This page does not pick a type for you. That is for the fire risk assessment of your building. Our guide to [fire retardancy](/fire-retardant-office-blinds-london) explains Types A, B and C and what a certificate has to show.'
+          ] },
+          { q: 'How often should blinds be cleaned?', short: 'As often as your cleaning schedule says. Blinds should be on it.', a: 'NHS England’s national standards of healthcare cleanliness set cleaning by functional risk category. A trust quick reference adapted from them says blinds, curtains and screens should be on the cleaning schedule with records kept. This page does not give frequencies because they depend on the risk category of the area. Visibly soiled blinds should be cleaned or changed straight away.' },
+          { q: 'Which blinds are easiest to keep clean in a clinical room?', short: 'Wipe-clean fabrics with cordless or tensioned operation.', a: 'A fabric that can be wiped down is simpler to keep to a schedule than one that has to come down and be laundered. Cordless or tensioned operation means there is no loop of cord to collect dust or to clean around. Where fabric blinds are used the guidance is for them to be laundered professionally.' },
+          { q: 'What gives privacy in a consulting room without making it dark?', short: 'Frosted or obscure options let light in while keeping the view out.', a: 'Dim-out and blackout fabrics are used where a room needs to be darker or fully private. Frosted and obscure options keep the view in from outside restricted while letting daylight through. The right choice depends on the window and on what the room is used for. It is easier to judge from a photo than from a description.' },
+          { q: 'Can I send a photo and find out?', short: 'Yes. It is the right first step.', a: 'A photo of each blind with its label, headrail and any cords, along with your postcode, tells Simone what she would look at first. It is free and nothing is ordered on the strength of it. If the building is occupied it is worth saying so in the message, because access and timing affect the plan.' }
         ]
       },
 

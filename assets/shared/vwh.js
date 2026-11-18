@@ -315,6 +315,16 @@
       if (key === 'cf-turnstile-response') return;
       data[key] = el.value;
     });
+    // The Apps Script has a fixed field list, so the premises choice
+    // travels at the front of the free-text field instead of as a
+    // field of its own.
+    if ('premises' in data) {
+      if (data.premises) {
+        var tag = '[Premises: ' + data.premises + ']';
+        data.idea = data.idea ? tag + ' ' + data.idea : tag;
+      }
+      delete data.premises;
+    }
     data.pageUrl = location.pathname;
     data.landing = landingNote();
     return data;
@@ -365,7 +375,7 @@
           done.textContent = 'Thank you. So this reaches Simone straight away, ' +
             'please call 020 8952 0404 or email simone@verywellhung.co.uk.';
           done.hidden = false;
-          form.querySelectorAll('input,textarea,button').forEach(function (c) { c.disabled = true; });
+          form.querySelectorAll('input,textarea,select,button').forEach(function (c) { c.disabled = true; });
         }
         return;
       }
@@ -410,7 +420,7 @@
 
         if (done) {
           done.hidden = false;
-          form.querySelectorAll('input,textarea,button').forEach(function (c) { c.disabled = true; });
+          form.querySelectorAll('input,textarea,select,button').forEach(function (c) { c.disabled = true; });
         }
         var mnt = form.querySelector('[data-turnstile-mount]');
         if (mnt) mnt.hidden = true;
