@@ -457,6 +457,9 @@ img, video { max-width: 100%; height: auto; display: block; }
 }
 .w-quote h3 { margin-bottom: 10px; }
 .w-quote p { margin-bottom: 18px; }
+.w-quote blockquote { margin: 0; }
+.w-row figure.w-quote { margin: 22px 0 0; }
+.w-row figure.w-quote figcaption { font-size: 0.9rem; color: var(--muted, inherit); }
 
 /* ---------- Testimonials ----------
    A grid of the same .w-quote figure, for the multi-quote homepage
@@ -465,6 +468,8 @@ img, video { max-width: 100%; height: auto; display: block; }
 .v-testimonials { display: grid; gap: 22px; }
 @media (min-width: 720px) { .v-testimonials { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .v-testimonials { grid-template-columns: repeat(3, 1fr); } }
+/* Four quotes sit as two by two rather than three and an orphan. */
+@media (min-width: 1080px) { .v-testimonials:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); } }
 .v-testimonial { max-width: none; }
 .v-testimonial figcaption { display: grid; gap: 2px; }
 .v-testimonial figcaption strong { font-family: var(--font-display); font-weight: 520; font-size: 0.98rem; color: var(--ink); }

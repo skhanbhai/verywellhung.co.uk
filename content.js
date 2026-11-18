@@ -401,6 +401,9 @@
        straight to the profile; a homepage trust block is the wrong
        place for a quote that stops mid-thought. */
     testimonials: [
+      /* Not a Google review: from Tumble Tots St Albans' Instagram post
+         of 29 Sep 2026, verbatim, used with their permission. */
+      { quote: 'With great skill and kindness Simone got her kit out and attached and rehung the curtain for us and all the other church hall users!!', name: 'Tumble Tots St Albans', context: 'Instagram, September 2026' },
       { quote: 'Amazing attention to detail from 1st contact to finish. Couldn\u2019t be happier', name: 'Grant Scott', context: 'Google review, July 2026' },
       { quote: 'Great service and blinds Simone was very helpful love the blinds thanks so much', name: 'Robert Lyons', context: 'Google review, August 2026' },
       { quote: 'Great service from start to finish the curtains complete the room.', verbatim: 'Great service from start to finish the curtains conplete the room.', name: 'John Rafferty', context: 'Google review, July 2026' }
@@ -1869,6 +1872,17 @@
           'Whether the blind carries warnings and instructions and roughly how old it is',
           'Which blinds can be made safe and which are better replaced'
         ],
+        /* Quoted verbatim from Tumble Tots St Albans' own Instagram post
+           (29 Sep 2026), used with their permission. Photo is theirs,
+           also with permission. It is a curtain job, so the copy says so
+           and makes no claim about blinds or cord checks. */
+        proof: {
+          kicker: 'What a children’s class said',
+          heading: 'Tumble Tots St Albans',
+          body: 'When the class moved to St Saviour’s Church a curtain in the hall needed putting back up. Simone rehung it for the class and every other group that uses the hall.',
+          quote: 'With great skill and kindness Simone got her kit out and attached and rehung the curtain for us and all the other church hall users!!',
+          source: 'Tumble Tots St Albans on Instagram, September 2026'
+        },
         faqs: [
           { q: 'Is it illegal to have looped blind cords in a nursery or school?', short: 'No blind-specific rule bans blinds you already have. The risk still has to be managed.', a: [
             'The 2014 standards cover supplying and fitting. The British Blind and Shutter Association says it is illegal to supply or professionally install an internal blind that does not comply. There is no blind-specific legal duty to replace older blinds that are already in place.',
