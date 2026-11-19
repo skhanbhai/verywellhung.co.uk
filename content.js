@@ -949,6 +949,7 @@
         ],
         // Areas with their own page render as links.
         links: {
+          Edgware: '/office-blinds-edgware',
           Watford: '/office-blinds-watford',
           Borehamwood: '/office-blinds-borehamwood'
         },
@@ -2025,6 +2026,121 @@
          the "trigger" is a place. Substance is the kind of building and
          window problem typical of the town; nothing here names a client
          or claims a job done there. ---- */
+      edgware: {
+        slug: '/office-blinds-edgware',
+        navLabel: 'Edgware',
+        heroKicker: 'Office blinds · Edgware',
+        h1: 'Office blinds in Edgware, specified by the person who quotes them.',
+        heroLine: 'Based in Edgware. Free site survey and made-to-measure blinds.',
+        heroSub: 'Edgware has offices above the shops on the high street, surgeries and nurseries in converted houses, care homes in large extended properties and small business units on the edges of town. Each brings its own window problem. Simone runs Very Well Hung as an owner-led business from Edgware, so the person who surveys your windows and quotes the job is the person you deal with throughout.',
+        quickAnswers: [
+          {
+            q: 'Are you actually local?',
+            short: 'Yes. Very Well Hung is based in Edgware.',
+            a: 'Simone works from Edgware, so a survey is easy to fit in and a follow-up visit to check a measurement or adjust a fitting is quick. The survey is free and carries no obligation. Send a photo of the windows with the postcode and she can say what she would suggest before anyone visits.'
+          },
+          {
+            q: 'What does it cost?',
+            short: 'From around £150 per window, supplied and fitted.',
+            a: 'That is the guide price for standard office roller blinds. Larger windows and specialist fabrics cost more. The exact price is confirmed after the free site survey and is based on the actual specification rather than a per-window estimate.'
+          },
+          {
+            q: 'What happens at the survey?',
+            short: 'She looks at every window and asks what each room is for.',
+            a: 'Simone looks at the glazing, the way the sun moves across each room, who uses it and what the frames and ceilings will take. You then get a recommendation before a quote. Nothing is ordered on the strength of the visit.'
+          }
+        ],
+        signsHeading: 'The premises we see in Edgware',
+        signsIntro: 'Edgware is more mixed than a business park town. Alongside ordinary offices there are practices, nurseries and care homes in buildings that were not designed for the job. These are the types of building worth describing and the window problem each tends to bring.',
+        signs: [
+          {
+            name: 'Offices above shops on the high street',
+            body: 'Upper floors above retail often have older windows of mixed size and awkward reveals. Street-facing glass needs privacy and glare control without losing daylight. No two windows in a run can be assumed to match.'
+          },
+          {
+            name: 'GP, dental and clinic practices in converted houses',
+            body: 'A house turned into a practice keeps its domestic windows. Treatment and consulting rooms need patient privacy from the street or the neighbours while still letting daylight in. Waiting rooms need cords kept out of reach of visiting children.'
+          },
+          {
+            name: 'Nurseries and small schools in converted houses, church halls and extensions',
+            body: 'Children’s rooms mean cords are the first thing to check. Converted houses add sash and casement windows of different sizes. Halls and extensions bring tall glazing that is hard to reach and often takes the afternoon sun. Sleep and quiet rooms may need dim-out.'
+          },
+          {
+            name: 'Care homes in large converted or extended houses',
+            body: 'Residents’ rooms often need dim-out for sleep and full privacy for personal care. Windows are a mix of the original house and later extensions. Operation has to be safe and simple for staff to manage across a lot of rooms.'
+          },
+          {
+            name: 'Small business units and offices on the edges of town',
+            body: 'Units with a front office and a workshop or store behind usually have a few large windows facing the car park or road. Reception needs to look right from outside while the back office needs glare control on screens.'
+          }
+        ],
+        causesHeading: 'Which blinds suit which Edgware situation',
+        causes: [
+          {
+            name: 'Nurseries and schools: cordless or tensioned blinds',
+            body: 'Where children use the room, the safest blind is one with no loop at all. The [cord safety guide](/blind-cord-safety-schools-nurseries) sets out what the rules cover for older blinds and what to do about the ones you already have.'
+          },
+          {
+            name: 'Care homes and surgeries: cords, fire evidence and cleaning together',
+            body: 'A blind in a care home or practice is looked at for cord risk and fabric evidence and for how it is cleaned. The guide to [blinds in care homes and surgeries](/blinds-care-homes-surgeries) covers what the guidance says on each. Which fabric a building needs is a question for its fire risk assessment.'
+          },
+          {
+            name: 'Consulting rooms and street-facing offices: privacy blinds',
+            body: 'Privacy is intermittent in some rooms and constant in others. A consulting room needs to close fully when it has to. A meeting room above a shop needs a blind that is quick to use. The reasoning is in the [meeting-room privacy guide](/meeting-room-privacy-blinds-london).'
+          },
+          {
+            name: 'Offices with screens in daylight: solar screen rollers',
+            body: 'A roller blind in a solar screen fabric cuts glare while keeping the view out. It suits the front office of a unit or a street-facing floor above a shop. The detail on fabric choice is in the [screen glare guide](/screen-glare-office-blinds-london).'
+          },
+          {
+            name: 'Landlord or assessor questions about fire performance',
+            body: 'Commercial premises may be asked to show that window blinds meet a recognised flammability standard. If that has come up, the [fire retardancy guide](/fire-retardant-office-blinds-london) explains what is being asked for and the free first step.'
+          }
+        ],
+        optionsHeading: 'Where to start for an Edgware premises',
+        optionsIntro: 'Cheapest first. The earlier steps cost nothing and often settle the question.',
+        options: [
+          {
+            name: 'Send a photo of the windows and the postcode',
+            body: 'Free. A photo of the glazing and any cords or labels, with the postcode, is usually enough for Simone to say which problem you have and roughly what she would suggest before anyone visits.'
+          },
+          {
+            name: 'Book the free site survey',
+            body: 'Simone looks at the glazing and how each room is used. She recommends before she quotes. There is no obligation to proceed.'
+          },
+          {
+            name: 'Do only the rooms that need it',
+            body: 'One consulting room or one street-facing window often causes most of the trouble. Starting there costs a fraction of doing the whole building and shows whether the rest is needed.'
+          },
+          {
+            name: 'Do the whole building in one consistent specification',
+            body: 'Worth it where blinds are seen from the street or where cords or fabric evidence need dealing with everywhere. It is the most expensive option and not always the right first step.'
+          }
+        ],
+        checksLead: 'What the survey looks at',
+        checks: [
+          'How each room is used and who uses it',
+          'Whether any room needs privacy or dim-out rather than just glare control',
+          'Any loops of cord or chain and where they sit in relation to children or residents',
+          'Window sizes and types. Where they differ from room to room',
+          'What the frames and reveals will take for fixing',
+          'Whether the landlord or building manager has rules on what can be fitted'
+        ],
+        faqs: [
+          { q: 'Are you actually local to Edgware?', short: 'Yes. Very Well Hung is based in Edgware.', a: 'Simone works from Edgware and covers the town and the areas around it as her regular patch. That makes surveys easy to fit in and follow-up visits quick. For larger projects, enquiries from further afield across London and Hertfordshire are also welcome.' },
+          { q: 'Can you come out quickly?', short: 'Being local helps. Timing depends on the diary.', a: 'Simone cannot promise a particular response time because it depends on the work already booked. Being based in Edgware means a survey usually does not involve a long journey. Send a photo and the postcode and she will say when she can visit.' },
+          { q: 'Do you cover Stanmore, Mill Hill and Hendon too?', short: 'Yes. They are part of the regular area.', a: 'Stanmore, Mill Hill and Hendon are all close to Simone’s base and part of the area she covers regularly. Send the postcode with a photo of the windows and she can confirm.' },
+          { q: 'What do I need to organise for the survey?', short: 'Access to the windows and an idea of where to park.', a: 'Tell Simone the postcode and whether the building has a manager or reception. High street premises can have restricted parking or loading. It helps to know before the visit. If the windows are in several rooms, please make sure someone can open the doors.' },
+          { q: 'Can you work around an occupied building?', short: 'Occupied premises are the normal case.', a: 'Most jobs happen in a working office or practice. Which rooms are done on which day is agreed when the quote is confirmed and depends on the premises. In a nursery or care home, say so at the start so the visit can be planned around the people there.' },
+          { q: 'Is it worth doing if I only have a few windows?', short: 'Yes. You do not need a whole building.', a: 'A single consulting room or one problem window is a reasonable job to ask about. Send a photo with the postcode and Simone will say what she would suggest. The price is confirmed after the free survey.' },
+          { q: 'My landlord has asked about fire-retardant blinds. What should I do?', short: 'Start by checking what the existing blinds are labelled.', a: 'There is no blanket law that office blinds must be fire retardant. A fire risk assessor may expect fabric tested to a recognised standard. Photograph any label on the existing blinds and read the fire retardancy guide on this site, which explains the options in order of cost.' }
+        ]
+      },
+
+      // TODO: replace with a real Edgware job + photos from Simone
+      // (area, blind type, type/scale of premises). Render it only once
+      // it exists; no placeholder text on the page.
+
       watford: {
         slug: '/office-blinds-watford',
         navLabel: 'Watford',
